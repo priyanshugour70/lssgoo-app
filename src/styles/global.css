@@ -1,0 +1,42 @@
+/**
+ * Global Styles for LssGoo Tours & Travels
+ * Base styles and Tailwind directives
+ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom utility classes */
+.shadow-sm {
+  shadow-color: #000;
+  shadow-offset: 0px 1px;
+  shadow-opacity: 0.18;
+  shadow-radius: 1.0;
+  elevation: 1;
+}
+
+.shadow-md {
+  shadow-color: #000;
+  shadow-offset: 0px 2px;
+  shadow-opacity: 0.2;
+  shadow-radius: 3.84;
+  elevation: 3;
+}
+
+.shadow-lg {
+  shadow-color: #000;
+  shadow-offset: 0px 4px;
+  shadow-opacity: 0.25;
+  shadow-radius: 6.27;
+  elevation: 6;
+}
+
+.shadow-xl {
+  shadow-color: #000;
+  shadow-offset: 0px 8px;
+  shadow-opacity: 0.3;
+  shadow-radius: 10.32;
+  elevation: 10;
+}
+

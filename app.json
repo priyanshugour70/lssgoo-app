@@ -1,0 +1,47 @@
+{
+  "name": "LssGoo",
+  "displayName": "LssGoo Tours & Travels",
+  "description": "Let's Go Explore - Premier travel agency specializing in creating unforgettable travel experiences across India and international destinations",
+  "version": "1.0.0",
+  "orientation": "portrait",
+  "icon": "./assets/logo/lss-goo-logo-color.png",
+  "splash": {
+    "image": "./assets/logo/lss-goo-logo-color.png",
+    "resizeMode": "contain",
+    "backgroundColor": "#ffffff"
+  },
+  "ios": {
+    "bundleIdentifier": "com.lssgoo.tours",
+    "buildNumber": "1",
+    "supportsTablet": true,
+    "infoPlist": {
+      "CFBundleDisplayName": "LssGoo Tours",
+      "NSLocationWhenInUseUsageDescription": "We need your location to show nearby destinations and provide better travel recommendations",
+      "NSLocationAlwaysUsageDescription": "We need your location to provide travel assistance during your trip",
+      "NSCameraUsageDescription": "Allow camera access to capture and share your travel memories",
+      "NSPhotoLibraryUsageDescription": "Allow photo library access to save and share your travel photos",
+      "NSPhotoLibraryAddUsageDescription": "Allow access to save your travel photos to your library"
+    }
+  },
+  "android": {
+    "package": "com.lssgoo.tours",
+    "versionCode": 1,
+    "adaptiveIcon": {
+      "foregroundImage": "./assets/logo/lss-goo-logo-color.png",
+      "backgroundColor": "#ffffff"
+    },
+    "permissions": [
+      "INTERNET",
+      "ACCESS_FINE_LOCATION",
+      "ACCESS_COARSE_LOCATION",
+      "CAMERA",
+      "READ_EXTERNAL_STORAGE",
+      "WRITE_EXTERNAL_STORAGE"
+    ]
+  },
+  "web": {
+    "favicon": "./assets/logo/favicon.png"
+  },
+  "scheme": "lssgoo",
+  "primaryColor": "#007AFF"
+}
