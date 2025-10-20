@@ -1,29 +1,56 @@
 /**
- * Below are the colors that are used in the app. The colors are defined in the light and dark mode.
- * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
+ * LssGoo Theme Configuration
+ * Colors are defined for both light and dark modes with sky blue and light blue focus
+ * Following the brand colors: sky blue, light blue, white, and black
  */
 
 import { Platform } from 'react-native';
 
-const tintColorLight = '#0a7ea4';
-const tintColorDark = '#fff';
+// Brand Colors
+export const BRAND_COLORS = {
+  skyBlue: '#87CEEB',
+  lightBlue: '#ADD8E6',
+  deepSkyBlue: '#00BFFF',
+  white: '#FFFFFF',
+  black: '#000000',
+  darkGray: '#1A1A1A',
+  lightGray: '#F5F5F5',
+  mediumGray: '#6B7280',
+} as const;
+
+const tintColorLight = BRAND_COLORS.deepSkyBlue;
+const tintColorDark = BRAND_COLORS.skyBlue;
 
 export const Colors = {
   light: {
-    text: '#11181C',
-    background: '#fff',
+    text: BRAND_COLORS.black,
+    background: BRAND_COLORS.white,
     tint: tintColorLight,
-    icon: '#687076',
-    tabIconDefault: '#687076',
+    icon: BRAND_COLORS.mediumGray,
+    tabIconDefault: BRAND_COLORS.mediumGray,
     tabIconSelected: tintColorLight,
+    primary: BRAND_COLORS.deepSkyBlue,
+    secondary: BRAND_COLORS.lightBlue,
+    accent: BRAND_COLORS.skyBlue,
+    surface: BRAND_COLORS.lightGray,
+    border: BRAND_COLORS.lightBlue,
+    card: BRAND_COLORS.white,
+    notification: BRAND_COLORS.deepSkyBlue,
   },
   dark: {
-    text: '#ECEDEE',
-    background: '#151718',
+    text: BRAND_COLORS.white,
+    background: BRAND_COLORS.darkGray,
     tint: tintColorDark,
-    icon: '#9BA1A6',
-    tabIconDefault: '#9BA1A6',
+    icon: BRAND_COLORS.lightBlue,
+    tabIconDefault: BRAND_COLORS.mediumGray,
     tabIconSelected: tintColorDark,
+    primary: BRAND_COLORS.skyBlue,
+    secondary: BRAND_COLORS.lightBlue,
+    accent: BRAND_COLORS.deepSkyBlue,
+    surface: '#2A2A2A',
+    border: BRAND_COLORS.skyBlue,
+    card: '#2A2A2A',
+    notification: BRAND_COLORS.skyBlue,
   },
 };
 

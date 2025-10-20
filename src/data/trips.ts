@@ -1,0 +1,137 @@
+/**
+ * LssGoo Travel App - Trip Data
+ * Sample trip data and related information
+ */
+
+import { Trip, TripCategory, TripCategoryInfo, CarouselItem } from '../types';
+
+export const SAMPLE_TRIPS: Trip[] = [
+  {
+    id: '1',
+    title: 'Goa Beach Paradise',
+    description: 'Experience the beautiful beaches of Goa with crystal clear waters and golden sand.',
+    destination: 'Goa, India',
+    price: 15000,
+    currency: 'INR',
+    duration: 4,
+    imageUrl: 'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=800',
+    rating: 4.8,
+    reviewCount: 245,
+    category: 'relaxation',
+    tags: ['beach', 'relaxation', 'nightlife'],
+    startDate: new Date('2024-03-15'),
+    endDate: new Date('2024-03-19'),
+    isPopular: true,
+    isFeatured: true,
+  },
+  {
+    id: '2',
+    title: 'Himalayan Adventure Trek',
+    description: 'Embark on an exciting trek through the majestic Himalayas.',
+    destination: 'Manali, Himachal Pradesh',
+    price: 25000,
+    currency: 'INR',
+    duration: 7,
+    imageUrl: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800',
+    rating: 4.9,
+    reviewCount: 189,
+    category: 'adventure',
+    tags: ['trekking', 'mountains', 'adventure'],
+    startDate: new Date('2024-04-01'),
+    endDate: new Date('2024-04-08'),
+    isPopular: true,
+  },
+  {
+    id: '3',
+    title: 'Rajasthan Cultural Tour',
+    description: 'Discover the rich culture and heritage of Rajasthan.',
+    destination: 'Jaipur, Rajasthan',
+    price: 20000,
+    currency: 'INR',
+    duration: 5,
+    imageUrl: 'https://images.unsplash.com/photo-1599661046827-dacde6976549?w=800',
+    rating: 4.7,
+    reviewCount: 156,
+    category: 'cultural',
+    tags: ['culture', 'heritage', 'palaces'],
+    startDate: new Date('2024-03-20'),
+    endDate: new Date('2024-03-25'),
+    isFeatured: true,
+  },
+  {
+    id: '4',
+    title: 'Kerala Backwaters',
+    description: 'Cruise through the serene backwaters of Kerala.',
+    destination: 'Alleppey, Kerala',
+    price: 18000,
+    currency: 'INR',
+    duration: 3,
+    imageUrl: 'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=800',
+    rating: 4.6,
+    reviewCount: 203,
+    category: 'relaxation',
+    tags: ['backwaters', 'houseboat', 'nature'],
+    startDate: new Date('2024-04-10'),
+    endDate: new Date('2024-04-13'),
+  },
+  {
+    id: '5',
+    title: 'Ladakh Road Trip',
+    description: 'An epic road trip through the stunning landscapes of Ladakh.',
+    destination: 'Leh, Ladakh',
+    price: 35000,
+    currency: 'INR',
+    duration: 10,
+    imageUrl: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800',
+    rating: 4.9,
+    reviewCount: 98,
+    category: 'adventure',
+    tags: ['road trip', 'mountains', 'photography'],
+    startDate: new Date('2024-05-01'),
+    endDate: new Date('2024-05-11'),
+    isPopular: true,
+  },
+];
+
+export const FEATURED_CAROUSEL_ITEMS: CarouselItem[] = [
+  {
+    id: '1',
+    title: 'Summer Special',
+    subtitle: 'Up to 30% off on beach destinations',
+    imageUrl: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800',
+  },
+  {
+    id: '2',
+    title: 'Adventure Awaits',
+    subtitle: 'Discover thrilling mountain expeditions',
+    imageUrl: 'https://images.unsplash.com/photo-1464822759844-d150baec93d5?w=800',
+  },
+  {
+    id: '3',
+    title: 'Cultural Heritage',
+    subtitle: 'Explore India\'s rich cultural heritage',
+    imageUrl: 'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=800',
+  },
+];
+
+export const POPULAR_DESTINATIONS = [
+  'Goa',
+  'Manali',
+  'Jaipur',
+  'Kerala',
+  'Ladakh',
+  'Rishikesh',
+  'Udaipur',
+  'Shimla',
+  'Darjeeling',
+  'Andaman',
+];
+
+export const TRIP_CATEGORIES: TripCategoryInfo[] = [
+  { id: 'adventure', name: 'Adventure', icon: 'mountain', tripCount: 15 },
+  { id: 'cultural', name: 'Cultural', icon: 'library', tripCount: 12 },
+  { id: 'relaxation', name: 'Relaxation', icon: 'sunny', tripCount: 18 },
+  { id: 'family', name: 'Family', icon: 'people', tripCount: 10 },
+  { id: 'romantic', name: 'Romantic', icon: 'heart', tripCount: 8 },
+  { id: 'business', name: 'Business', icon: 'briefcase', tripCount: 6 },
+];
