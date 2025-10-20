@@ -10,25 +10,25 @@ export const FOOTER_NAVIGATION: NavigationItem[] = [
     id: 'home',
     title: 'Home',
     icon: 'home',
-    route: '/(tabs)',
+    route: '/main',
   },
   {
     id: 'explore',
     title: 'Explore',
     icon: 'compass',
-    route: '/(tabs)/explore',
+    route: '/main/explore',
   },
   {
     id: 'bookings',
     title: 'Bookings',
     icon: 'calendar',
-    route: '/(tabs)/bookings',
+    route: '/main/my-trips',
   },
   {
     id: 'account',
     title: 'Account',
     icon: 'user',
-    route: '/(tabs)/account',
+    route: '/main/profile',
   },
 ];
 

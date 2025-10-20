@@ -3,15 +3,16 @@
  * Global authentication state management using Zustand
  */
 
-import { create } from 'zustand';
-import { User } from '@/types/common';
-import { storage } from '@/services/storage';
 import { apiClient } from '@/services/apiClient';
+import { storage } from '@/services/storage';
+import { User } from '@/types/common';
+import { create } from 'zustand';
 
 interface AuthState {
   user: User | null;
   token: string | null;
   isAuthenticated: boolean;
+  isGuest: boolean;
   isLoading: boolean;
   error: string | null;
 
@@ -20,6 +21,7 @@ interface AuthState {
   setToken: (token: string | null) => void;
   login: (email: string, password: string) => Promise<void>;
   signup: (name: string, email: string, password: string) => Promise<void>;
+  loginAsGuest: () => Promise<void>;
   logout: () => Promise<void>;
   loadStoredAuth: () => Promise<void>;
   clearError: () => void;
@@ -29,6 +31,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   user: null,
   token: null,
   isAuthenticated: false,
+  isGuest: false,
   isLoading: false,
   error: null,
 
@@ -129,6 +132,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         user: mockUser,
         token: mockToken,
         isAuthenticated: true,
+        isGuest: false,
         isLoading: false,
       });
 
@@ -136,6 +140,53 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     } catch (error: any) {
       set({
         error: error.message || 'Signup failed',
+        isLoading: false,
+      });
+      throw error;
+    }
+  },
+
+  loginAsGuest: async () => {
+    try {
+      set({ isLoading: true, error: null });
+
+      // Create guest user
+      const guestUser: User = {
+        id: 'guest',
+        name: 'Guest User',
+        email: '',
+        preferences: {
+          theme: 'light',
+          language: 'en',
+          currency: 'INR',
+          notifications: {
+            push: false,
+            email: false,
+            sms: false,
+            marketing: false,
+          },
+        },
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
+
+      // Save guest state to storage
+      await storage.saveUser(guestUser);
+      await storage.saveToken('guest-token');
+
+      // Update state
+      set({
+        user: guestUser,
+        token: 'guest-token',
+        isAuthenticated: true,
+        isGuest: true,
+        isLoading: false,
+      });
+
+      apiClient.setToken('guest-token');
+    } catch (error: any) {
+      set({
+        error: error.message || 'Guest login failed',
         isLoading: false,
       });
       throw error;
@@ -155,6 +206,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         user: null,
         token: null,
         isAuthenticated: false,
+        isGuest: false,
         isLoading: false,
       });
 

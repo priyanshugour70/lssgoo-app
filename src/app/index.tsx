@@ -37,14 +37,14 @@ export default function Index() {
   if (isLoading) {
     return (
       <View style={tw`flex-1 items-center justify-center bg-white`}>
-        <ActivityIndicator size="large" color="#3B82F6" />
+        <ActivityIndicator size="large" color="#FF6B35" />
       </View>
     );
   }
 
   // If authenticated, go to main app
   if (isAuthenticated) {
-    return <Redirect href="/(tabs)" />;
+    return <Redirect href="/main" />;
   }
 
   // If onboarding not completed, show onboarding

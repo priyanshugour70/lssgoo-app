@@ -6,7 +6,7 @@ import Toast from 'react-native-toast-message';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 
 export const unstable_settings = {
-  anchor: '(tabs)',
+  anchor: 'main',
 };
 
 export default function RootLayout() {
@@ -22,7 +22,7 @@ export default function RootLayout() {
         <Stack.Screen name="auth/signup" />
         <Stack.Screen name="auth/verify-otp" />
         <Stack.Screen name="auth/complete-profile" />
-        <Stack.Screen name="(tabs)" />
+        <Stack.Screen name="main" />
         <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
       </Stack>
       <StatusBar style="auto" />

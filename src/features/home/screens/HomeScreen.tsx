@@ -1,20 +1,36 @@
 /**
  * LssGoo Travel App - Home Screen
- * Main home screen with all travel components
+ * Modern home screen with all travel components based on design
  */
 
-import COMPANY_INFO from '@/app/constants/companyInfo';
-import { CarouselItem } from '@/types/common';
 import { router } from 'expo-router';
-import React from 'react';
-import { ActivityIndicator, Alert, ScrollView, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { ActivityIndicator, Alert, ScrollView, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import tw from 'twrnc';
-import { HeroBanner, OffersCarousel, TrendingTrips } from '../components';
-import { useHomeData } from '../hooks/useHomeData';
-import { Trip } from '../types/homeTypes';
+import {
+  CategoryChips,
+  DealsCarousel,
+  Header,
+  HeroSection,
+  PlanTripCTA,
+  TestimonialsSlider,
+  TopDestinations,
+  TravelStories,
+} from '../components';
+import {
+  CATEGORIES,
+  Category,
+  Deal,
+  DEALS,
+  Destination,
+  DESTINATIONS,
+  TESTIMONIALS,
+  TRAVEL_STORIES,
+  TravelStory,
+} from '../data/homeData';
 
-const CAROUSEL_ITEMS: CarouselItem[] = [
+const HERO_BANNERS = [
   {
     id: '1',
     title: 'Summer Special',
@@ -36,26 +52,47 @@ const CAROUSEL_ITEMS: CarouselItem[] = [
 ];
 
 export const HomeScreen = () => {
-  const { featuredTrips, popularTrips, loading } = useHomeData();
+  const [selectedCategory, setSelectedCategory] = useState<string>('');
+  const [loading] = useState(false);
 
-  const handleExplorePress = () => {
-    router.push('/(tabs)/explore');
+  const handleSearchPress = () => {
+    router.push('/main/search');
   };
 
-  const handleTripPress = (trip: Trip) => {
-    Alert.alert('Trip Details', `Selected: ${trip.title}`);
+  const handleDestinationPress = (destination: Destination) => {
+    Alert.alert('Destination Details', `Selected: ${destination.title}`);
   };
 
-  const handleViewAllPress = () => {
-    router.push('/(tabs)/explore');
+  const handleBookmark = (destination: Destination) => {
+    Alert.alert('Bookmark', `Bookmarked: ${destination.title}`);
+  };
+
+  const handleCategoryPress = (category: Category) => {
+    setSelectedCategory(category.id);
+    Alert.alert('Category', `Selected: ${category.name}`);
+  };
+
+  const handleDealPress = (deal: Deal) => {
+    Alert.alert('Deal Details', `Selected: ${deal.title}`);
+  };
+
+  const handleStoryPress = (story: TravelStory) => {
+    Alert.alert('Travel Story', `Selected: ${story.title}`);
+  };
+
+  const handlePlanTripPress = () => {
+    router.push('/main/explore');
+  };
+
+  const handleViewAllDestinations = () => {
+    router.push('/main/explore');
   };
 
   if (loading) {
     return (
       <SafeAreaView style={tw`flex-1 bg-white`}>
         <View style={tw`flex-1 justify-center items-center`}>
-          <ActivityIndicator size="large" color="#3B82F6" />
-          <Text style={tw`mt-4 text-base text-gray-600`}>Loading amazing destinations...</Text>
+          <ActivityIndicator size="large" color="#FF6B35" />
         </View>
       </SafeAreaView>
     );
@@ -63,54 +100,52 @@ export const HomeScreen = () => {
 
   return (
     <SafeAreaView style={tw`flex-1 bg-gray-50`}>
-      <ScrollView 
+      <ScrollView
         style={tw`flex-1`}
         showsVerticalScrollIndicator={false}
       >
-        {/* Hero Banner */}
-        <HeroBanner
-          title="Discover Amazing Places"
-          subtitle={`Explore the world with ${COMPANY_INFO.displayName} and create unforgettable memories`}
-          backgroundImage="https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800"
-          onExplorePress={handleExplorePress}
+        {/* Header */}
+        <Header
+          onSearchPress={handleSearchPress}
         />
 
-        {/* Featured Carousel */}
-        <OffersCarousel
-          items={CAROUSEL_ITEMS}
-          autoPlay={true}
-          interval={4000}
+        {/* Hero Section with Search */}
+        <HeroSection
+          banners={HERO_BANNERS}
         />
 
-        {/* Popular Trips */}
-        {popularTrips && popularTrips.length > 0 && (
-          <View style={tw`mb-6`}>
-            <View style={tw`px-4 mb-4`}>
-              <Text style={tw`text-2xl font-bold text-gray-900`}>Popular Destinations</Text>
-              <Text style={tw`text-sm text-gray-600 mt-1`}>Explore the most loved destinations</Text>
-            </View>
-            <TrendingTrips
-              trips={popularTrips}
-              onTripPress={handleTripPress}
-              onViewAllPress={handleViewAllPress}
-            />
-          </View>
-        )}
+        {/* Top Destinations */}
+        <TopDestinations
+          destinations={DESTINATIONS}
+          onDestinationPress={handleDestinationPress}
+          onBookmark={handleBookmark}
+          onViewAllPress={handleViewAllDestinations}
+        />
 
-        {/* Featured Trips */}
-        {featuredTrips && featuredTrips.length > 0 && (
-          <View style={tw`mb-6`}>
-            <View style={tw`px-4 mb-4`}>
-              <Text style={tw`text-2xl font-bold text-gray-900`}>Featured Trips</Text>
-              <Text style={tw`text-sm text-gray-600 mt-1`}>Hand-picked experiences just for you</Text>
-            </View>
-            <TrendingTrips
-              trips={featuredTrips}
-              onTripPress={handleTripPress}
-              onViewAllPress={handleViewAllPress}
-            />
-          </View>
-        )}
+        {/* Categories */}
+        <CategoryChips
+          categories={CATEGORIES}
+          selectedCategory={selectedCategory}
+          onCategoryPress={handleCategoryPress}
+        />
+
+        {/* Deals & Offers */}
+        <DealsCarousel
+          deals={DEALS}
+          onDealPress={handleDealPress}
+        />
+
+        {/* Testimonials */}
+        <TestimonialsSlider testimonials={TESTIMONIALS} />
+
+        {/* Travel Stories */}
+        <TravelStories
+          stories={TRAVEL_STORIES}
+          onStoryPress={handleStoryPress}
+        />
+
+        {/* Plan Trip CTA */}
+        <PlanTripCTA onPress={handlePlanTripPress} />
 
         {/* Footer Space */}
         <View style={tw`h-6`} />

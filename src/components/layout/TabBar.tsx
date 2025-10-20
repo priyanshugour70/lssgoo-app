@@ -1,19 +1,16 @@
 /**
  * LssGoo Travel App - TabBar Component
- * Clean, reusable tab bar configuration
+ * Clean, reusable tab bar configuration with proper icons
  */
 
-import { Compass, Home, MapPin, Search, User } from 'lucide-react-native';
+import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
-
-import { HapticTab } from '@/components/haptic-tab';
 
 // Tab bar configuration function
 export const getTabBarOptions = () => ({
   headerShown: false,
-  tabBarActiveTintColor: '#3B82F6',
+  tabBarActiveTintColor: '#FF6B35', // Orange theme color
   tabBarInactiveTintColor: '#9CA3AF',
-  tabBarButton: HapticTab,
   tabBarStyle: {
     backgroundColor: '#FFFFFF',
     borderTopColor: '#E5E7EB',
@@ -21,30 +18,38 @@ export const getTabBarOptions = () => ({
     paddingBottom: 8,
     paddingTop: 8,
     height: 80,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: -2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    elevation: 5,
   },
   tabBarLabelStyle: {
     fontSize: 12,
-    fontWeight: '500' as '500',
+    fontWeight: '600' as '600',
     marginTop: 4,
   },
 });
 
-// Tab icon components
+// Tab icon components with proper styling
 export const TabIcons = {
   home: ({ color, size = 24 }: { color: string; size?: number }) => (
-    <Home color={color} size={size} />
+    <Ionicons name="home" color={color} size={size} />
   ),
   explore: ({ color, size = 24 }: { color: string; size?: number }) => (
-    <Compass color={color} size={size} />
+    <Ionicons name="compass" color={color} size={size} />
   ),
   search: ({ color, size = 24 }: { color: string; size?: number }) => (
-    <Search color={color} size={size} />
+    <Ionicons name="search" color={color} size={size} />
   ),
   myTrips: ({ color, size = 24 }: { color: string; size?: number }) => (
-    <MapPin color={color} size={size} />
+    <Ionicons name="calendar" color={color} size={size} />
   ),
   profile: ({ color, size = 24 }: { color: string; size?: number }) => (
-    <User color={color} size={size} />
+    <Ionicons name="person" color={color} size={size} />
   ),
 };
 

@@ -82,6 +82,7 @@ export interface HeaderProps {
   onSearchPress?: () => void;
   onProfilePress?: () => void;
   onMenuPress?: () => void;
+  user?: User | null;
 }
 
 export interface FooterProps {

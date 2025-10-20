@@ -10,14 +10,14 @@ import { router, useLocalSearchParams } from 'expo-router';
 import { Shield } from 'lucide-react-native';
 import React, { useEffect, useRef, useState } from 'react';
 import {
-    Keyboard,
-    KeyboardAvoidingView,
-    Platform,
-    ScrollView,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
@@ -96,7 +96,7 @@ export const VerifyOTPScreen = () => {
           });
 
           // Navigate to main app
-          router.replace('/(tabs)');
+          router.replace('/main');
         } else {
           // New user - navigate to complete profile
           Toast.show({

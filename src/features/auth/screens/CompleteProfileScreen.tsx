@@ -97,7 +97,7 @@ export const CompleteProfileScreen = () => {
         });
 
         // Navigate to profile for first-time setup
-        router.replace('/(tabs)/profile');
+        router.replace('/main/profile');
       } else {
         Toast.show({
           type: 'error',

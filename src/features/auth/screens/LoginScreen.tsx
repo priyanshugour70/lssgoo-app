@@ -6,16 +6,17 @@
 import COMPANY_INFO from '@/app/constants/companyInfo';
 import { Button } from '@/components/Button';
 import { InputField } from '@/components/InputField';
+import { useAuthStore } from '@/store/authStore';
 import { router } from 'expo-router';
 import { ChevronLeft, Phone } from 'lucide-react-native';
 import React, { useState } from 'react';
 import {
-    KeyboardAvoidingView,
-    Platform,
-    ScrollView,
-    Text,
-    TouchableOpacity,
-    View,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
@@ -25,6 +26,7 @@ import { authApi } from '../api/authApi';
 export const LoginScreen = () => {
   const [phone, setPhone] = useState('');
   const [loading, setLoading] = useState(false);
+  const { loginAsGuest } = useAuthStore();
 
   const handleSendOTP = async () => {
     if (!phone || phone.length < 10) {
@@ -65,6 +67,27 @@ export const LoginScreen = () => {
         type: 'error',
         text1: 'Error',
         text2: error.message || 'Something went wrong',
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGuestLogin = async () => {
+    try {
+      setLoading(true);
+      await loginAsGuest();
+      Toast.show({
+        type: 'success',
+        text1: 'Welcome Guest!',
+        text2: 'You can explore the app without signing up',
+      });
+      router.replace('/main');
+    } catch (error: any) {
+      Toast.show({
+        type: 'error',
+        text1: 'Error',
+        text2: error.message || 'Failed to login as guest',
       });
     } finally {
       setLoading(false);
@@ -133,6 +156,25 @@ export const LoginScreen = () => {
                 <Text style={tw`font-semibold text-blue-600`}>Sign Up</Text>
               </Text>
             </TouchableOpacity>
+
+            <View style={tw`flex-row items-center justify-center my-6`}>
+              <View style={tw`flex-1 h-px bg-gray-200`} />
+              <Text style={tw`mx-4 text-sm text-gray-500`}>OR</Text>
+              <View style={tw`flex-1 h-px bg-gray-200`} />
+            </View>
+
+            <Button
+              title="Continue as Guest"
+              onPress={handleGuestLogin}
+              loading={loading}
+              style={{ 
+                marginTop: 0,
+                backgroundColor: '#F3F4F6',
+                borderColor: '#D1D5DB',
+                borderWidth: 1,
+              }}
+              textStyle={{ color: '#374151' }}
+            />
           </View>
 
           <View style={tw`items-center py-6`}>

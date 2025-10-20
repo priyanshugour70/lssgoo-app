@@ -7,11 +7,11 @@ import { router } from 'expo-router';
 import { Bookmark, Calendar, Clock, Plus } from 'lucide-react-native';
 import React, { useState } from 'react';
 import {
-    ActivityIndicator,
-    ScrollView,
-    Text,
-    TouchableOpacity,
-    View,
+  ActivityIndicator,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import tw from 'twrnc';
@@ -69,7 +69,7 @@ export const MyBookingsScreen = () => {
           </Text>
           <TouchableOpacity
             style={tw`bg-blue-600 px-6 py-3 rounded-xl`}
-            onPress={() => router.push('/(tabs)/explore')}
+            onPress={() => router.push('/main/explore')}
             activeOpacity={0.8}
           >
             <Text style={tw`text-white font-semibold`}>Explore Destinations</Text>
@@ -101,7 +101,7 @@ export const MyBookingsScreen = () => {
         </View>
         <TouchableOpacity 
           style={tw`bg-blue-600 p-3 rounded-full`}
-          onPress={() => router.push('/(tabs)/explore')}
+          onPress={() => router.push('/main/explore')}
           activeOpacity={0.8}
         >
           <Plus size={24} color="#FFFFFF" />
