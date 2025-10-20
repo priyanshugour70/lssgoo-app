@@ -5,23 +5,24 @@
 
 import { formatCurrency } from '@/utils/currency';
 import {
-  Filter,
-  Heart,
-  MapPin,
-  Search,
-  Star
+    Filter,
+    Heart,
+    MapPin,
+    Search,
+    Star
 } from 'lucide-react-native';
 import React, { useState } from 'react';
 import {
-  ActivityIndicator,
-  Image,
-  ScrollView,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
+    ActivityIndicator,
+    Image,
+    ScrollView,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import tw from 'twrnc';
 
 // Mock destinations data
 const CATEGORIES = ['All', 'Beach', 'Mountain', 'City', 'Adventure', 'Cultural'];
@@ -117,24 +118,24 @@ export const ExploreScreen = () => {
   });
 
   return (
-    <SafeAreaView className="flex-1 bg-gray-50">
+    <SafeAreaView style={tw`flex-1 bg-gray-50`}>
       {/* Header */}
-      <View className="px-6 pt-4 pb-6 bg-white border-b border-gray-100">
-        <View className="flex-row items-center justify-between mb-4">
+      <View style={tw`px-6 pt-4 pb-6 bg-white border-b border-gray-100`}>
+        <View style={tw`flex-row items-center justify-between mb-4`}>
           <View>
-            <Text className="text-3xl font-bold text-gray-900">Explore</Text>
-            <Text className="text-sm text-gray-600 mt-1">Discover amazing places</Text>
+            <Text style={tw`text-3xl font-bold text-gray-900`}>Explore</Text>
+            <Text style={tw`text-sm text-gray-600 mt-1`}>Discover amazing places</Text>
           </View>
-          <TouchableOpacity className="bg-blue-50 p-3 rounded-full">
+          <TouchableOpacity style={tw`bg-blue-50 p-3 rounded-full`}>
             <Filter size={20} color="#3B82F6" />
           </TouchableOpacity>
         </View>
 
         {/* Search Bar */}
-        <View className="flex-row items-center bg-gray-100 rounded-xl px-4 py-3">
+        <View style={tw`flex-row items-center bg-gray-100 rounded-xl px-4 py-3`}>
           <Search size={20} color="#6B7280" />
           <TextInput
-            className="flex-1 ml-3 text-base text-gray-900"
+            style={tw`flex-1 ml-3 text-base text-gray-900`}
             placeholder="Search destinations..."
             placeholderTextColor="#9CA3AF"
             value={searchQuery}
@@ -142,7 +143,7 @@ export const ExploreScreen = () => {
           />
           {searchQuery.length > 0 && (
             <TouchableOpacity onPress={() => setSearchQuery('')}>
-              <Text className="text-gray-400">✕</Text>
+              <Text style={tw`text-gray-400`}>✕</Text>
             </TouchableOpacity>
           )}
         </View>
@@ -152,13 +153,13 @@ export const ExploreScreen = () => {
       <ScrollView 
         horizontal 
         showsHorizontalScrollIndicator={false}
-        className="bg-white py-4 px-4 border-b border-gray-100"
+        style={tw`bg-white py-4 px-4 border-b border-gray-100`}
         contentContainerStyle={{ gap: 8 }}
       >
         {CATEGORIES.map((category) => (
           <TouchableOpacity
             key={category}
-            className={`px-6 py-2 rounded-full ${
+            style={tw`px-6 py-2 rounded-full ${
               selectedCategory === category
                 ? 'bg-blue-600'
                 : 'bg-gray-100'
@@ -166,7 +167,7 @@ export const ExploreScreen = () => {
             onPress={() => setSelectedCategory(category)}
             activeOpacity={0.8}
           >
-            <Text className={`text-sm font-semibold ${
+            <Text style={tw`text-sm font-semibold ${
               selectedCategory === category
                 ? 'text-white'
                 : 'text-gray-700'
@@ -178,37 +179,37 @@ export const ExploreScreen = () => {
       </ScrollView>
 
       {/* Results */}
-      <ScrollView className="flex-1 px-4 pt-4" showsVerticalScrollIndicator={false}>
-        <Text className="text-base font-semibold text-gray-900 mb-4">
+      <ScrollView style={tw`flex-1 px-4 pt-4`} showsVerticalScrollIndicator={false}>
+        <Text style={tw`text-base font-semibold text-gray-900 mb-4`}>
           {filteredDestinations.length} Destinations Found
         </Text>
 
         {loading ? (
-          <View className="flex-1 justify-center items-center py-20">
+          <View style={tw`flex-1 justify-center items-center py-20`}>
             <ActivityIndicator size="large" color="#3B82F6" />
           </View>
         ) : filteredDestinations.length === 0 ? (
-          <View className="flex-1 justify-center items-center py-20">
-            <Text className="text-lg font-semibold text-gray-900 mb-2">No Results Found</Text>
-            <Text className="text-sm text-gray-600">Try adjusting your search or filters</Text>
+          <View style={tw`flex-1 justify-center items-center py-20`}>
+            <Text style={tw`text-lg font-semibold text-gray-900 mb-2`}>No Results Found</Text>
+            <Text style={tw`text-sm text-gray-600`}>Try adjusting your search or filters</Text>
           </View>
         ) : (
-          <View className="flex-row flex-wrap justify-between mb-6">
+          <View style={tw`flex-row flex-wrap justify-between mb-6`}>
             {filteredDestinations.map((destination) => (
-              <View key={destination.id} className="w-[48%] mb-4">
+              <View key={destination.id} style={tw`w-[48%] mb-4`}>
                 <TouchableOpacity
-                  className="bg-white rounded-2xl overflow-hidden shadow-md"
+                  style={tw`bg-white rounded-2xl overflow-hidden shadow-md`}
                   activeOpacity={0.9}
                 >
                   {/* Image */}
-                  <View className="relative">
+                  <View style={tw`relative`}>
                     <Image
                       source={{ uri: destination.image }}
-                      className="w-full h-40"
+                      style={tw`w-full h-40`}
                       resizeMode="cover"
                     />
                     <TouchableOpacity
-                      className="absolute top-3 right-3 bg-white/90 p-2 rounded-full"
+                      style={tw`absolute top-3 right-3 bg-white/90 p-2 rounded-full`}
                       onPress={() => toggleFavorite(destination.id)}
                       activeOpacity={0.8}
                     >
@@ -218,31 +219,31 @@ export const ExploreScreen = () => {
                         fill={favorites.includes(destination.id) ? '#EF4444' : 'transparent'}
                       />
                     </TouchableOpacity>
-                    <View className="absolute bottom-3 left-3 bg-blue-600 px-2 py-1 rounded">
-                      <Text className="text-xs font-semibold text-white">{destination.duration}</Text>
+                    <View style={tw`absolute bottom-3 left-3 bg-blue-600 px-2 py-1 rounded`}>
+                      <Text style={tw`text-xs font-semibold text-white`}>{destination.duration}</Text>
                     </View>
                   </View>
 
                   {/* Content */}
-                  <View className="p-3">
-                    <Text className="text-base font-bold text-gray-900 mb-1" numberOfLines={1}>
+                  <View style={tw`p-3`}>
+                    <Text style={tw`text-base font-bold text-gray-900 mb-1`} numberOfLines={1}>
                       {destination.name}
                     </Text>
-                    <View className="flex-row items-center mb-2">
+                    <View style={tw`flex-row items-center mb-2`}>
                       <MapPin size={12} color="#6B7280" />
-                      <Text className="text-xs text-gray-600 ml-1" numberOfLines={1}>
+                      <Text style={tw`text-xs text-gray-600 ml-1`} numberOfLines={1}>
                         {destination.location}
                       </Text>
                     </View>
-                    <View className="flex-row items-center justify-between">
-                      <View className="flex-row items-center">
+                    <View style={tw`flex-row items-center justify-between`}>
+                      <View style={tw`flex-row items-center`}>
                         <Star size={12} color="#F59E0B" fill="#F59E0B" />
-                        <Text className="text-xs font-medium text-gray-900 ml-1">
+                        <Text style={tw`text-xs font-medium text-gray-900 ml-1`}>
                           {destination.rating}
                         </Text>
-                        <Text className="text-xs text-gray-500 ml-1">({destination.reviews})</Text>
+                        <Text style={tw`text-xs text-gray-500 ml-1`}>({destination.reviews})</Text>
                       </View>
-                      <Text className="text-sm font-bold text-blue-600">
+                      <Text style={tw`text-sm font-bold text-blue-600`}>
                         {formatCurrency(destination.price)}
                       </Text>
                     </View>

@@ -6,15 +6,13 @@
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
 import {
-  Image,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
+    Image,
+    ScrollView,
+    Text,
+    TouchableOpacity,
+    View,
 } from 'react-native';
-import { BRAND_COLORS, Colors } from '../../constants/theme';
-import { useColorScheme } from '../../hooks/use-color-scheme';
+import tw from 'twrnc';
 import { ExploreProps } from '../../types';
 
 export const Explore: React.FC<ExploreProps> = ({
@@ -24,138 +22,21 @@ export const Explore: React.FC<ExploreProps> = ({
   onCategoryPress,
   onViewAllPress,
 }) => {
-  const colorScheme = useColorScheme();
-  const colors = Colors[colorScheme ?? 'light'];
-
-  const styles = StyleSheet.create({
-    container: {
-      marginVertical: 16,
-    },
-    section: {
-      marginBottom: 24,
-    },
-    sectionHeader: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      paddingHorizontal: 16,
-      marginBottom: 16,
-    },
-    sectionTitle: {
-      fontSize: 20,
-      fontWeight: 'bold',
-      color: colors.text,
-    },
-    viewAllButton: {
-      flexDirection: 'row',
-      alignItems: 'center',
-    },
-    viewAllText: {
-      fontSize: 14,
-      color: colors.primary,
-      marginRight: 4,
-    },
-    destinationsContainer: {
-      paddingLeft: 16,
-    },
-    destinationCard: {
-      width: 200,
-      marginRight: 16,
-      borderRadius: 12,
-      overflow: 'hidden',
-      backgroundColor: colors.card,
-      shadowColor: BRAND_COLORS.black,
-      shadowOffset: {
-        width: 0,
-        height: 2,
-      },
-      shadowOpacity: 0.1,
-      shadowRadius: 3.84,
-      elevation: 5,
-    },
-    destinationImage: {
-      width: '100%',
-      height: 120,
-      resizeMode: 'cover',
-    },
-    destinationInfo: {
-      padding: 12,
-    },
-    destinationName: {
-      fontSize: 16,
-      fontWeight: '600',
-      color: colors.text,
-      marginBottom: 4,
-    },
-    destinationLocation: {
-      fontSize: 12,
-      color: colors.icon,
-      marginBottom: 8,
-    },
-    destinationPrice: {
-      fontSize: 14,
-      fontWeight: 'bold',
-      color: colors.primary,
-    },
-    categoriesContainer: {
-      flexDirection: 'row',
-      flexWrap: 'wrap',
-      paddingHorizontal: 16,
-      gap: 12,
-    },
-    categoryCard: {
-      flex: 1,
-      minWidth: '45%',
-      backgroundColor: colors.card,
-      borderRadius: 12,
-      padding: 16,
-      alignItems: 'center',
-      shadowColor: BRAND_COLORS.black,
-      shadowOffset: {
-        width: 0,
-        height: 2,
-      },
-      shadowOpacity: 0.1,
-      shadowRadius: 3.84,
-      elevation: 5,
-    },
-    categoryIcon: {
-      width: 48,
-      height: 48,
-      borderRadius: 24,
-      backgroundColor: colors.primary,
-      justifyContent: 'center',
-      alignItems: 'center',
-      marginBottom: 8,
-    },
-    categoryName: {
-      fontSize: 14,
-      fontWeight: '600',
-      color: colors.text,
-      textAlign: 'center',
-    },
-    categoryCount: {
-      fontSize: 12,
-      color: colors.icon,
-      marginTop: 2,
-    },
-  });
-
   return (
-    <View style={styles.container}>
+    <View style={tw`my-4`}>
       {/* Popular Destinations Section */}
-      <View style={styles.section}>
-        <View style={styles.sectionHeader}>
-          <Text style={styles.sectionTitle}>Popular Destinations</Text>
+      <View style={tw`mb-6`}>
+        <View style={tw`flex-row justify-between items-center px-4 mb-4`}>
+          <Text style={tw`text-xl font-bold text-gray-900`}>Popular Destinations</Text>
           <TouchableOpacity
-            style={styles.viewAllButton}
+            style={tw`flex-row items-center`}
             onPress={() => onViewAllPress?.('destinations')}
           >
-            <Text style={styles.viewAllText}>View All</Text>
+            <Text style={tw`text-sm text-blue-600 mr-1`}>View All</Text>
             <Ionicons
               name="chevron-forward"
               size={16}
-              color={colors.primary}
+              color="#3B82F6"
             />
           </TouchableOpacity>
         </View>
@@ -163,26 +44,27 @@ export const Explore: React.FC<ExploreProps> = ({
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.destinationsContainer}
+          contentContainerStyle={{ paddingLeft: 16 }}
         >
           {destinations.map((destination) => (
             <TouchableOpacity
               key={destination.id}
-              style={styles.destinationCard}
+              style={tw`w-50 mr-4 rounded-xl overflow-hidden bg-white shadow-md`}
               onPress={() => onDestinationPress?.(destination)}
             >
               <Image
                 source={{ uri: destination.imageUrl }}
-                style={styles.destinationImage}
+                style={tw`w-full h-30`}
+                resizeMode="cover"
               />
-              <View style={styles.destinationInfo}>
-                <Text style={styles.destinationName}>
+              <View style={tw`p-3`}>
+                <Text style={tw`text-base font-semibold text-gray-900 mb-1`}>
                   {destination.title}
                 </Text>
-                <Text style={styles.destinationLocation}>
+                <Text style={tw`text-xs text-gray-600 mb-2`}>
                   {destination.destination}
                 </Text>
-                <Text style={styles.destinationPrice}>
+                <Text style={tw`text-sm font-bold text-blue-600`}>
                   From ${destination.price}
                 </Text>
               </View>
@@ -192,38 +74,38 @@ export const Explore: React.FC<ExploreProps> = ({
       </View>
 
       {/* Categories Section */}
-      <View style={styles.section}>
-        <View style={styles.sectionHeader}>
-          <Text style={styles.sectionTitle}>Explore Categories</Text>
+      <View style={tw`mb-6`}>
+        <View style={tw`flex-row justify-between items-center px-4 mb-4`}>
+          <Text style={tw`text-xl font-bold text-gray-900`}>Explore Categories</Text>
           <TouchableOpacity
-            style={styles.viewAllButton}
+            style={tw`flex-row items-center`}
             onPress={() => onViewAllPress?.('categories')}
           >
-            <Text style={styles.viewAllText}>View All</Text>
+            <Text style={tw`text-sm text-blue-600 mr-1`}>View All</Text>
             <Ionicons
               name="chevron-forward"
               size={16}
-              color={colors.primary}
+              color="#3B82F6"
             />
           </TouchableOpacity>
         </View>
         
-        <View style={styles.categoriesContainer}>
+        <View style={tw`flex-row flex-wrap px-4 gap-3`}>
           {categories.map((category) => (
             <TouchableOpacity
               key={category.id}
-              style={styles.categoryCard}
+              style={[tw`flex-1 bg-white rounded-xl p-4 items-center shadow-md`, { minWidth: '45%' }]}
               onPress={() => onCategoryPress?.(category)}
             >
-              <View style={styles.categoryIcon}>
+              <View style={tw`w-12 h-12 rounded-full bg-blue-600 justify-center items-center mb-2`}>
                 <Ionicons
                   name={category.icon as any}
                   size={24}
-                  color={BRAND_COLORS.white}
+                  color="#FFFFFF"
                 />
               </View>
-              <Text style={styles.categoryName}>{category.name}</Text>
-              <Text style={styles.categoryCount}>
+              <Text style={tw`text-sm font-semibold text-gray-900 text-center`}>{category.name}</Text>
+              <Text style={tw`text-xs text-gray-600 mt-0.5`}>
                 {category.tripCount} trips
               </Text>
             </TouchableOpacity>

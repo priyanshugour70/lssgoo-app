@@ -21,6 +21,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
+import tw from 'twrnc';
 import { authApi } from '../api/authApi';
 
 export const VerifyOTPScreen = () => {
@@ -152,53 +153,53 @@ export const VerifyOTPScreen = () => {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-white">
+    <SafeAreaView style={tw`flex-1 bg-white`}>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        className="flex-1"
+        style={tw`flex-1`}
       >
         <ScrollView
-          className="flex-1 px-6"
+          style={tw`flex-1 px-6`}
           contentContainerStyle={{ flexGrow: 1 }}
           showsVerticalScrollIndicator={false}
         >
-          <View className="flex-1 pt-8">
-            <Text className="text-3xl font-bold text-blue-600 mb-8">
+          <View style={tw`flex-1 pt-8`}>
+            <Text style={tw`text-3xl font-bold text-blue-600 mb-8`}>
               {COMPANY_INFO.displayName}
             </Text>
 
-            <View className="items-center mb-8">
-              <View className="w-20 h-20 bg-blue-100 rounded-full items-center justify-center mb-6">
+            <View style={tw`items-center mb-8`}>
+              <View style={tw`w-20 h-20 bg-blue-100 rounded-full items-center justify-center mb-6`}>
                 <Shield size={40} color="#3B82F6" />
               </View>
 
-              <Text className="text-2xl font-bold text-gray-900 mb-3">
+              <Text style={tw`text-2xl font-bold text-gray-900 mb-3`}>
                 Verify Phone Number
               </Text>
 
-              <Text className="text-base text-gray-600 text-center mb-2">
+              <Text style={tw`text-base text-gray-600 text-center mb-2`}>
                 Enter the 4-digit code sent to
               </Text>
 
-              <Text className="text-base font-semibold text-gray-900 mb-4">
+              <Text style={tw`text-base font-semibold text-gray-900 mb-4`}>
                 {params.phone}
               </Text>
 
               {params.otp && (
-                <View className="bg-blue-50 px-4 py-3 rounded-lg mb-4">
-                  <Text className="text-sm text-blue-600 text-center">
-                    📱 Demo OTP: <Text className="font-bold">{params.otp}</Text>
+                <View style={tw`bg-blue-50 px-4 py-3 rounded-lg mb-4`}>
+                  <Text style={tw`text-sm text-blue-600 text-center`}>
+                    📱 Demo OTP: <Text style={tw`font-bold`}>{params.otp}</Text>
                   </Text>
                 </View>
               )}
             </View>
 
-            <View className="flex-row justify-between mb-8">
+            <View style={tw`flex-row justify-between mb-8`}>
               {otp.map((digit, index) => (
                 <TextInput
                   key={index}
                   ref={ref => (inputRefs.current[index] = ref)}
-                  className="w-16 h-16 border-2 border-gray-200 rounded-xl text-center text-2xl font-bold text-gray-900 bg-gray-50"
+                  style={tw`w-16 h-16 border-2 border-gray-200 rounded-xl text-center text-2xl font-bold text-gray-900 bg-gray-50`}
                   keyboardType="number-pad"
                   maxLength={1}
                   value={digit}
@@ -215,17 +216,17 @@ export const VerifyOTPScreen = () => {
               loading={loading}
             />
 
-            <View className="items-center mt-6">
+            <View style={tw`items-center mt-6`}>
               {timer > 0 ? (
-                <Text className="text-sm text-gray-600">
+                <Text style={tw`text-sm text-gray-600`}>
                   Resend OTP in{' '}
-                  <Text className="font-semibold text-blue-600">
+                  <Text style={tw`font-semibold text-blue-600`}>
                     {timer}s
                   </Text>
                 </Text>
               ) : (
                 <TouchableOpacity onPress={handleResendOTP}>
-                  <Text className="text-sm font-semibold text-blue-600">
+                  <Text style={tw`text-sm font-semibold text-blue-600`}>
                     Resend OTP
                   </Text>
                 </TouchableOpacity>
@@ -233,12 +234,12 @@ export const VerifyOTPScreen = () => {
             </View>
 
             <TouchableOpacity
-              className="mt-4"
+              style={tw`mt-4`}
               onPress={() => router.back()}
             >
-              <Text className="text-sm text-gray-600 text-center">
+              <Text style={tw`text-sm text-gray-600 text-center`}>
                 Wrong number?{' '}
-                <Text className="font-semibold text-blue-600">Change</Text>
+                <Text style={tw`font-semibold text-blue-600`}>Change</Text>
               </Text>
             </TouchableOpacity>
           </View>

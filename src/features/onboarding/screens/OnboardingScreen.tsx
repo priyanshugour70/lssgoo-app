@@ -15,6 +15,7 @@ import {
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import tw from 'twrnc';
 import { OnboardingSlide } from '../components/OnboardingSlide';
 
 const { width } = Dimensions.get('window');
@@ -80,20 +81,20 @@ export const OnboardingScreen = () => {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-white">
+    <SafeAreaView style={tw`flex-1 bg-white`}>
       {/* Header */}
-      <View className="flex-row justify-between items-center px-6 py-3 bg-white border-b border-gray-100">
-        <Text className="text-2xl font-bold text-blue-600">
+      <View style={tw`flex-row justify-between items-center px-6 py-3 bg-white border-b border-gray-100`}>
+        <Text style={tw`text-2xl font-bold text-blue-600`}>
           {COMPANY_INFO.displayName}
         </Text>
         {currentIndex < ONBOARDING_SLIDES.length - 1 && (
           <TouchableOpacity 
             onPress={handleSkip}
-            className="px-4 py-2"
+            style={tw`px-4 py-2`}
             activeOpacity={0.7}
             hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
           >
-            <Text className="text-base font-semibold text-gray-600">Skip</Text>
+            <Text style={tw`text-base font-semibold text-gray-600`}>Skip</Text>
           </TouchableOpacity>
         )}
       </View>
@@ -106,7 +107,7 @@ export const OnboardingScreen = () => {
         showsHorizontalScrollIndicator={false}
         onMomentumScrollEnd={handleScroll}
         scrollEventThrottle={16}
-        className="flex-1"
+        style={tw`flex-1`}
       >
         {ONBOARDING_SLIDES.map((slide) => (
           <OnboardingSlide
@@ -119,37 +120,25 @@ export const OnboardingScreen = () => {
       </ScrollView>
 
       {/* Bottom Section - Pagination & Button */}
-      <View className="px-6 py-6 bg-white border-t border-gray-100">
+      <View style={tw`px-6 py-6 bg-white border-t border-gray-100`}>
         {/* Pagination Dots */}
-        <View className="flex-row justify-center items-center mb-6 gap-2">
+        <View style={tw`flex-row justify-center items-center mb-6 gap-2`}>
           {ONBOARDING_SLIDES.map((_, index) => (
             <View
               key={index}
-              style={{
-                width: index === currentIndex ? 32 : 8,
-                height: 8,
-                borderRadius: 4,
-                backgroundColor: index === currentIndex ? '#2563eb' : '#d1d5db',
-              }}
+              style={tw`${index === currentIndex ? 'w-8 h-2 rounded bg-blue-600' : 'w-2 h-2 rounded bg-gray-300'}`}
             />
           ))}
         </View>
 
         {/* Next/Get Started Button */}
         <TouchableOpacity
-          className="bg-blue-600 py-4 rounded-xl items-center"
-          style={{
-            shadowColor: '#2563eb',
-            shadowOffset: { width: 0, height: 4 },
-            shadowOpacity: 0.3,
-            shadowRadius: 8,
-            elevation: 6,
-          }}
+          style={tw`bg-blue-600 py-4 rounded-xl items-center shadow-lg`}
           onPress={handleNext}
           activeOpacity={0.7}
           disabled={false}
         >
-          <Text className="text-white text-lg font-bold">
+          <Text style={tw`text-white text-lg font-bold`}>
             {currentIndex === ONBOARDING_SLIDES.length - 1
               ? 'Get Started'
               : 'Next'}

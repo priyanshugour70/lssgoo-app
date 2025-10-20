@@ -2,10 +2,10 @@
  * LssGoo Travel App - Booking Card Component
  */
 
+import { Calendar, Clock, Heart, MapPin } from 'lucide-react-native';
 import React from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
-import { MapPin, Calendar, Clock, Heart } from 'lucide-react-native';
-import { Colors } from '@/app/constants/theme';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
+import tw from 'twrnc';
 import { Booking } from '../types/bookingTypes';
 
 interface BookingCardProps {
@@ -16,27 +16,25 @@ interface BookingCardProps {
 
 export const BookingCard: React.FC<BookingCardProps> = ({ booking, type, onPress }) => {
   return (
-    <TouchableOpacity style={styles.card} onPress={onPress}>
-      <Image source={{ uri: booking.image }} style={styles.image} />
-      <View style={styles.info}>
-        <Text style={styles.title}>{booking.title}</Text>
-        <View style={styles.location}>
-          <MapPin size={14} color={Colors.icon} />
-          <Text style={styles.destination}>{booking.destination}</Text>
+    <TouchableOpacity style={tw`bg-white rounded-xl mb-4 shadow-md`} onPress={onPress}>
+      <Image source={{ uri: booking.image }} style={tw`w-full h-50 rounded-t-xl`} />
+      <View style={tw`p-4`}>
+        <Text style={tw`text-lg font-semibold text-gray-900 mb-2`}>{booking.title}</Text>
+        <View style={tw`flex-row items-center mb-2`}>
+          <MapPin size={14} color="#6B7280" />
+          <Text style={tw`text-sm text-gray-600 ml-1.5`}>{booking.destination}</Text>
         </View>
         
         {type === 'upcoming' && (
-          <View style={styles.date}>
-            <Calendar size={14} color={Colors.icon} />
-            <Text style={styles.dateText}>{booking.date}</Text>
-            <View style={[
-              styles.statusBadge,
-              booking.status === 'Confirmed' ? styles.confirmed : styles.pending
-            ]}>
-              <Text style={[
-                styles.statusText,
-                booking.status === 'Confirmed' ? styles.confirmedText : styles.pendingText
-              ]}>
+          <View style={tw`flex-row items-center justify-between`}>
+            <Calendar size={14} color="#6B7280" />
+            <Text style={tw`text-sm text-gray-600 ml-1.5 flex-1`}>{booking.date}</Text>
+            <View style={tw`px-2 py-1 rounded-xl ${
+              booking.status === 'Confirmed' ? 'bg-green-100' : 'bg-yellow-100'
+            }`}>
+              <Text style={tw`text-xs font-medium ${
+                booking.status === 'Confirmed' ? 'text-green-600' : 'text-yellow-600'
+              }`}>
                 {booking.status}
               </Text>
             </View>
@@ -44,17 +42,17 @@ export const BookingCard: React.FC<BookingCardProps> = ({ booking, type, onPress
         )}
         
         {type === 'past' && booking.date && (
-          <View style={styles.date}>
-            <Clock size={14} color={Colors.icon} />
-            <Text style={styles.dateText}>{booking.date}</Text>
+          <View style={tw`flex-row items-center justify-between`}>
+            <Clock size={14} color="#6B7280" />
+            <Text style={tw`text-sm text-gray-600 ml-1.5 flex-1`}>{booking.date}</Text>
           </View>
         )}
         
         {type === 'saved' && booking.price && (
-          <View style={styles.price}>
-            <Text style={styles.priceText}>{booking.price}</Text>
-            <TouchableOpacity style={styles.heartButton}>
-              <Heart size={16} color={Colors.error} fill={Colors.error} />
+          <View style={tw`flex-row items-center justify-between`}>
+            <Text style={tw`text-lg font-semibold text-blue-600`}>{booking.price}</Text>
+            <TouchableOpacity style={tw`p-1`}>
+              <Heart size={16} color="#EF4444" fill="#EF4444" />
             </TouchableOpacity>
           </View>
         )}
@@ -62,89 +60,6 @@ export const BookingCard: React.FC<BookingCardProps> = ({ booking, type, onPress
     </TouchableOpacity>
   );
 };
-
-const styles = StyleSheet.create({
-  card: {
-    backgroundColor: Colors.card,
-    borderRadius: 12,
-    marginBottom: 16,
-    shadowColor: Colors.cardShadow,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 3,
-  },
-  image: {
-    width: '100%',
-    height: 200,
-    borderTopLeftRadius: 12,
-    borderTopRightRadius: 12,
-  },
-  info: {
-    padding: 16,
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: Colors.text,
-    marginBottom: 8,
-  },
-  location: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 8,
-  },
-  destination: {
-    fontSize: 14,
-    color: Colors.textSecondary,
-    marginLeft: 6,
-  },
-  date: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  dateText: {
-    fontSize: 14,
-    color: Colors.textSecondary,
-    marginLeft: 6,
-    flex: 1,
-  },
-  statusBadge: {
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 12,
-  },
-  confirmed: {
-    backgroundColor: Colors.success + '20',
-  },
-  pending: {
-    backgroundColor: Colors.warning + '20',
-  },
-  statusText: {
-    fontSize: 12,
-    fontWeight: '500',
-  },
-  confirmedText: {
-    color: Colors.success,
-  },
-  pendingText: {
-    color: Colors.warning,
-  },
-  price: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  priceText: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: Colors.primary,
-  },
-  heartButton: {
-    padding: 4,
-  },
-});
 
 export default BookingCard;
 

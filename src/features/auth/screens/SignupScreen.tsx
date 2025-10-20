@@ -18,6 +18,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
+import tw from 'twrnc';
 import { authApi } from '../api/authApi';
 
 export const SignupScreen = () => {
@@ -109,36 +110,36 @@ export const SignupScreen = () => {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-white">
+    <SafeAreaView style={tw`flex-1 bg-white`}>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        className="flex-1"
+        style={tw`flex-1`}
       >
         <ScrollView
-          className="flex-1 px-6"
+          style={tw`flex-1 px-6`}
           contentContainerStyle={{ flexGrow: 1 }}
           showsVerticalScrollIndicator={false}
         >
           <TouchableOpacity
-            className="mt-4 mb-6"
+            style={tw`mt-4 mb-6`}
             onPress={() => router.back()}
           >
             <ChevronLeft size={24} color="#111827" />
           </TouchableOpacity>
 
-          <View className="mb-10">
-            <Text className="text-3xl font-bold text-blue-600 mb-6">
+          <View style={tw`mb-10`}>
+            <Text style={tw`text-3xl font-bold text-blue-600 mb-6`}>
               {COMPANY_INFO.displayName}
             </Text>
-            <Text className="text-3xl font-bold text-gray-900 mb-3">
+            <Text style={tw`text-3xl font-bold text-gray-900 mb-3`}>
               Create Account
             </Text>
-            <Text className="text-base text-gray-600">
+            <Text style={tw`text-base text-gray-600`}>
               Join us and start your journey to amazing destinations
             </Text>
           </View>
 
-          <View className="flex-1">
+          <View style={tw`flex-1`}>
             <InputField
               label="Full Name"
               placeholder="John Doe"
@@ -172,30 +173,30 @@ export const SignupScreen = () => {
               style={{ marginTop: 24 }}
             />
 
-            <View className="flex-row items-center justify-center my-8">
-              <View className="flex-1 h-px bg-gray-200" />
-              <Text className="mx-4 text-sm text-gray-500">OR</Text>
-              <View className="flex-1 h-px bg-gray-200" />
+            <View style={tw`flex-row items-center justify-center my-8`}>
+              <View style={tw`flex-1 h-px bg-gray-200`} />
+              <Text style={tw`mx-4 text-sm text-gray-500`}>OR</Text>
+              <View style={tw`flex-1 h-px bg-gray-200`} />
             </View>
 
             <TouchableOpacity
-              className="items-center"
+              style={tw`items-center`}
               onPress={() => router.push('/auth/login')}
             >
-              <Text className="text-base text-gray-600">
+              <Text style={tw`text-base text-gray-600`}>
                 Already have an account?{' '}
-                <Text className="font-semibold text-blue-600">Sign In</Text>
+                <Text style={tw`font-semibold text-blue-600`}>Sign In</Text>
               </Text>
             </TouchableOpacity>
           </View>
 
-          <View className="items-center py-6">
-            <View className="flex-row items-center justify-center space-x-8">
+          <View style={tw`items-center py-6`}>
+            <View style={tw`flex-row items-center justify-center gap-8`}>
               <User size={32} color="#3B82F6" />
               <Phone size={32} color="#3B82F6" />
               <Mail size={32} color="#3B82F6" />
             </View>
-            <Text className="text-sm text-gray-600 text-center mt-4">
+            <Text style={tw`text-sm text-gray-600 text-center mt-4`}>
               We'll send you a verification code via SMS
             </Text>
           </View>

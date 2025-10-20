@@ -3,21 +3,17 @@
  * Bottom navigation with Home, Explore, Bookings, and Account tabs
  */
 
-import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { FooterProps } from '../../types';
-import { Colors } from '../../constants/theme';
-import { useColorScheme } from '../../hooks/use-color-scheme';
+import React from 'react';
+import { Text, TouchableOpacity, View } from 'react-native';
+import tw from 'twrnc';
 import { FOOTER_NAVIGATION } from '../../data/navigation';
+import { FooterProps } from '../../types';
 
 export const Footer: React.FC<FooterProps> = ({
   activeTab,
   onTabPress,
 }) => {
-  const colorScheme = useColorScheme();
-  const colors = Colors[colorScheme ?? 'light'];
-
   const getIconName = (iconName: string, isActive: boolean) => {
     const iconMap: { [key: string]: { active: string; inactive: string } } = {
       home: { active: 'home', inactive: 'home-outline' },
@@ -29,46 +25,8 @@ export const Footer: React.FC<FooterProps> = ({
     return iconMap[iconName]?.[isActive ? 'active' : 'inactive'] || iconName;
   };
 
-  const styles = StyleSheet.create({
-    container: {
-      flexDirection: 'row',
-      backgroundColor: colors.background,
-      borderTopWidth: 1,
-      borderTopColor: colors.border,
-      paddingVertical: 8,
-      paddingHorizontal: 4,
-      shadowColor: colors.text,
-      shadowOffset: {
-        width: 0,
-        height: -2,
-      },
-      shadowOpacity: 0.1,
-      shadowRadius: 3.84,
-      elevation: 5,
-    },
-    tabItem: {
-      flex: 1,
-      alignItems: 'center',
-      paddingVertical: 8,
-      paddingHorizontal: 4,
-    },
-    tabIcon: {
-      marginBottom: 4,
-    },
-    tabLabel: {
-      fontSize: 12,
-      fontWeight: '500',
-    },
-    activeTab: {
-      color: colors.tabIconSelected,
-    },
-    inactiveTab: {
-      color: colors.tabIconDefault,
-    },
-  });
-
   return (
-    <View style={styles.container}>
+    <View style={tw`flex-row bg-white border-t border-gray-200 py-2 px-1 shadow-lg`}>
       {FOOTER_NAVIGATION.map((item) => {
         const isActive = activeTab === item.id;
         const iconName = getIconName(item.icon, isActive);
@@ -76,24 +34,21 @@ export const Footer: React.FC<FooterProps> = ({
         return (
           <TouchableOpacity
             key={item.id}
-            style={styles.tabItem}
+            style={tw`flex-1 items-center py-2 px-1`}
             onPress={() => onTabPress(item.id)}
             accessibilityLabel={item.title}
             accessibilityRole="tab"
             accessibilityState={{ selected: isActive }}
           >
-            <View style={styles.tabIcon}>
+            <View style={tw`mb-1`}>
               <Ionicons
                 name={iconName as any}
                 size={24}
-                color={isActive ? colors.tabIconSelected : colors.tabIconDefault}
+                color={isActive ? '#3B82F6' : '#9CA3AF'}
               />
             </View>
             <Text
-              style={[
-                styles.tabLabel,
-                isActive ? styles.activeTab : styles.inactiveTab,
-              ]}
+              style={tw`text-xs font-medium ${isActive ? 'text-blue-600' : 'text-gray-400'}`}
             >
               {item.title}
             </Text>

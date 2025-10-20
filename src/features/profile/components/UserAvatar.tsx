@@ -3,8 +3,8 @@
  */
 
 import React from 'react';
-import { View, Image, StyleSheet } from 'react-native';
-import { Colors } from '@/app/constants/theme';
+import { Image, View } from 'react-native';
+import tw from 'twrnc';
 
 interface UserAvatarProps {
   uri: string;
@@ -13,22 +13,15 @@ interface UserAvatarProps {
 
 export const UserAvatar: React.FC<UserAvatarProps> = ({ uri, size = 80 }) => {
   return (
-    <View style={[styles.container, { width: size, height: size, borderRadius: size / 2 }]}>
-      <Image source={{ uri }} style={[styles.image, { width: size, height: size, borderRadius: size / 2 }]} />
+    <View style={[tw`overflow-hidden border-2 border-gray-200`, { width: size, height: size, borderRadius: size / 2 }]}>
+      <Image 
+        source={{ uri }} 
+        style={{ width: size, height: size, borderRadius: size / 2 }} 
+        resizeMode="cover"
+      />
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    overflow: 'hidden',
-    borderWidth: 2,
-    borderColor: Colors.border,
-  },
-  image: {
-    resizeMode: 'cover',
-  },
-});
 
 export default UserAvatar;
 

@@ -2,18 +2,17 @@
  * LssGoo Travel App - Search Screen
  */
 
-import React, { useState, useEffect } from 'react';
+import { Clock, Filter, MapPin, Search } from 'lucide-react-native';
+import React, { useEffect, useState } from 'react';
 import {
-  View,
-  Text,
-  TextInput,
-  ScrollView,
-  TouchableOpacity,
-  StyleSheet,
+    ScrollView,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Search, Filter, MapPin, Clock } from 'lucide-react-native';
-import { Colors } from '@/app/constants/theme';
+import tw from 'twrnc';
 import { useSearch } from '../hooks/useSearch';
 
 const POPULAR_DESTINATIONS = [
@@ -34,49 +33,49 @@ export const SearchScreen = () => {
   }, []);
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.title}>Search</Text>
+    <SafeAreaView style={tw`flex-1 bg-gray-50`}>
+      <View style={tw`px-5 py-4 border-b border-gray-200`}>
+        <Text style={tw`text-3xl font-bold text-gray-900`}>Search</Text>
       </View>
 
-      <View style={styles.searchContainer}>
-        <View style={styles.searchInputContainer}>
-          <Search size={20} color={Colors.icon} style={styles.searchIcon} />
+      <View style={tw`px-5 py-4`}>
+        <View style={tw`flex-row items-center bg-gray-100 rounded-xl px-4 py-3 border border-gray-200`}>
+          <Search size={20} color="#6B7280" style={tw`mr-3`} />
           <TextInput
-            style={styles.searchInput}
+            style={tw`flex-1 text-base text-gray-900`}
             placeholder="Where do you want to go?"
-            placeholderTextColor={Colors.textMuted}
+            placeholderTextColor="#9CA3AF"
             value={searchQuery}
             onChangeText={setSearchQuery}
           />
-          <TouchableOpacity style={styles.filterButton}>
-            <Filter size={20} color={Colors.icon} />
+          <TouchableOpacity style={tw`p-1`}>
+            <Filter size={20} color="#6B7280" />
           </TouchableOpacity>
         </View>
       </View>
 
-      <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
+      <ScrollView style={tw`flex-1 px-5`} showsVerticalScrollIndicator={false}>
         {searchQuery === '' && (
           <>
             {recentSearches.length > 0 && (
-              <View style={styles.section}>
-                <Text style={styles.sectionTitle}>Recent Searches</Text>
+              <View style={tw`mb-8`}>
+                <Text style={tw`text-lg font-semibold text-gray-900 mb-4`}>Recent Searches</Text>
                 {recentSearches.map((search, index) => (
-                  <TouchableOpacity key={index} style={styles.recentItem}>
-                    <Clock size={16} color={Colors.icon} />
-                    <Text style={styles.recentText}>{search}</Text>
+                  <TouchableOpacity key={index} style={tw`flex-row items-center py-3 border-b border-gray-100`}>
+                    <Clock size={16} color="#6B7280" />
+                    <Text style={tw`text-base text-gray-900 ml-3`}>{search}</Text>
                   </TouchableOpacity>
                 ))}
               </View>
             )}
 
-            <View style={styles.section}>
-              <Text style={styles.sectionTitle}>Popular Destinations</Text>
-              <View style={styles.popularGrid}>
+            <View style={tw`mb-8`}>
+              <Text style={tw`text-lg font-semibold text-gray-900 mb-4`}>Popular Destinations</Text>
+              <View style={tw`flex-row flex-wrap gap-3`}>
                 {POPULAR_DESTINATIONS.map((destination, index) => (
-                  <TouchableOpacity key={index} style={styles.popularItem}>
-                    <MapPin size={16} color={Colors.primary} />
-                    <Text style={styles.popularText}>{destination}</Text>
+                  <TouchableOpacity key={index} style={tw`flex-row items-center bg-gray-100 px-4 py-2.5 rounded-full border border-gray-200`}>
+                    <MapPin size={16} color="#3B82F6" />
+                    <Text style={tw`text-sm text-gray-900 ml-2 font-medium`}>{destination}</Text>
                   </TouchableOpacity>
                 ))}
               </View>
@@ -87,95 +86,6 @@ export const SearchScreen = () => {
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.background,
-  },
-  header: {
-    paddingHorizontal: 20,
-    paddingVertical: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: Colors.border,
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: Colors.text,
-  },
-  searchContainer: {
-    paddingHorizontal: 20,
-    paddingVertical: 16,
-  },
-  searchInputContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: Colors.surfaceSecondary,
-    borderRadius: 12,
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    borderWidth: 1,
-    borderColor: Colors.border,
-  },
-  searchIcon: {
-    marginRight: 12,
-  },
-  searchInput: {
-    flex: 1,
-    fontSize: 16,
-    color: Colors.text,
-  },
-  filterButton: {
-    padding: 4,
-  },
-  content: {
-    flex: 1,
-    paddingHorizontal: 20,
-  },
-  section: {
-    marginBottom: 32,
-  },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: Colors.text,
-    marginBottom: 16,
-  },
-  recentItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: Colors.borderLight,
-  },
-  recentText: {
-    fontSize: 16,
-    color: Colors.text,
-    marginLeft: 12,
-  },
-  popularGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 12,
-  },
-  popularItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: Colors.surfaceSecondary,
-    paddingHorizontal: 16,
-    paddingVertical: 10,
-    borderRadius: 20,
-    borderWidth: 1,
-    borderColor: Colors.border,
-  },
-  popularText: {
-    fontSize: 14,
-    color: Colors.text,
-    marginLeft: 8,
-    fontWeight: '500',
-  },
-});
 
 export default SearchScreen;
 

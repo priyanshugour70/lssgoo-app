@@ -5,6 +5,7 @@
 
 import React from 'react';
 import { ActivityIndicator, Text, TouchableOpacity, ViewStyle } from 'react-native';
+import tw from 'twrnc';
 
 interface ButtonProps {
   title: string;
@@ -34,15 +35,15 @@ export const Button: React.FC<ButtonProps> = ({
   const getVariantClasses = () => {
     switch (variant) {
       case 'primary':
-        return 'bg-blue-600 active:bg-blue-700 shadow-md';
+        return 'bg-blue-600 shadow-md';
       case 'secondary':
-        return 'bg-gray-600 active:bg-gray-700 shadow-md';
+        return 'bg-gray-600 shadow-md';
       case 'outline':
-        return 'bg-transparent border-2 border-blue-600 active:bg-blue-50';
+        return 'bg-transparent border-2 border-blue-600';
       case 'ghost':
-        return 'bg-transparent active:bg-gray-100';
+        return 'bg-transparent';
       default:
-        return 'bg-blue-600 active:bg-blue-700 shadow-md';
+        return 'bg-blue-600 shadow-md';
     }
   };
 
@@ -86,14 +87,15 @@ export const Button: React.FC<ButtonProps> = ({
     }
   };
 
+  const buttonClasses = `rounded-xl items-center justify-center flex-row ${
+    fullWidth ? 'w-full' : ''
+  } ${getVariantClasses()} ${getSizeClasses()} ${
+    disabled || loading ? 'opacity-50' : 'opacity-100'
+  } ${className || ''}`;
+
   return (
     <TouchableOpacity
-      className={`rounded-xl items-center justify-center flex-row ${
-        fullWidth ? 'w-full' : ''
-      } ${getVariantClasses()} ${getSizeClasses()} ${
-        disabled || loading ? 'opacity-50' : 'opacity-100'
-      } ${className || ''}`}
-      style={style}
+      style={[tw`${buttonClasses}`, style]}
       onPress={onPress}
       disabled={disabled || loading}
       activeOpacity={0.8}
@@ -106,7 +108,7 @@ export const Button: React.FC<ButtonProps> = ({
         <>
           {icon && <>{icon}</>}
           <Text
-            className={`font-semibold ${getTextVariantClasses()} ${getTextSizeClasses()}`}
+            style={tw`font-semibold ${getTextVariantClasses()} ${getTextSizeClasses()}`}
           >
             {title}
           </Text>

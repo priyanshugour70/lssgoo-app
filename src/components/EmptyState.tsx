@@ -4,8 +4,8 @@
  */
 
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { Colors } from '@/app/constants/theme';
+import { Text, View } from 'react-native';
+import tw from 'twrnc';
 
 interface EmptyStateProps {
   title: string;
@@ -15,37 +15,13 @@ interface EmptyStateProps {
 
 export const EmptyState: React.FC<EmptyStateProps> = ({ title, description, icon }) => {
   return (
-    <View style={styles.container}>
-      {icon && <View style={styles.iconContainer}>{icon}</View>}
-      <Text style={styles.title}>{title}</Text>
-      {description && <Text style={styles.description}>{description}</Text>}
+    <View style={tw`flex-1 justify-center items-center p-10`}>
+      {icon && <View style={tw`mb-4`}>{icon}</View>}
+      <Text style={tw`text-lg font-semibold text-gray-900 text-center mb-2`}>{title}</Text>
+      {description && <Text style={tw`text-sm text-gray-600 text-center`}>{description}</Text>}
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 40,
-  },
-  iconContainer: {
-    marginBottom: 16,
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: Colors.text,
-    textAlign: 'center',
-    marginBottom: 8,
-  },
-  description: {
-    fontSize: 14,
-    color: Colors.textSecondary,
-    textAlign: 'center',
-  },
-});
 
 export default EmptyState;
 

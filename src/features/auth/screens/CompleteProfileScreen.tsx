@@ -12,15 +12,16 @@ import { router, useLocalSearchParams } from 'expo-router';
 import { Camera, User } from 'lucide-react-native';
 import React, { useState } from 'react';
 import {
-    KeyboardAvoidingView,
-    Platform,
-    ScrollView,
-    Text,
-    TouchableOpacity,
-    View
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
+import tw from 'twrnc';
 import { authApi } from '../api/authApi';
 
 export const CompleteProfileScreen = () => {
@@ -116,33 +117,33 @@ export const CompleteProfileScreen = () => {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-white">
+    <SafeAreaView style={tw`flex-1 bg-white`}>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        className="flex-1"
+        style={tw`flex-1`}
       >
         <ScrollView
-          className="flex-1 px-6"
+          style={tw`flex-1 px-6`}
           contentContainerStyle={{ flexGrow: 1 }}
           showsVerticalScrollIndicator={false}
         >
-          <View className="flex-1 pt-8">
-            <Text className="text-3xl font-bold text-blue-600 mb-8">
+          <View style={tw`flex-1 pt-8`}>
+            <Text style={tw`text-3xl font-bold text-blue-600 mb-8`}>
               {COMPANY_INFO.displayName}
             </Text>
 
-            <Text className="text-3xl font-bold text-gray-900 mb-3">
+            <Text style={tw`text-3xl font-bold text-gray-900 mb-3`}>
               Complete Your Profile
             </Text>
-            <Text className="text-base text-gray-600 mb-8">
+            <Text style={tw`text-base text-gray-600 mb-8`}>
               Tell us about yourself to get started
             </Text>
 
-            <View className="items-center mb-8">
-              <View className="w-24 h-24 rounded-full bg-blue-100 items-center justify-center">
+            <View style={tw`items-center mb-8`}>
+              <View style={tw`w-24 h-24 rounded-full bg-blue-100 items-center justify-center`}>
                 <User size={40} color="#3B82F6" />
               </View>
-              <TouchableOpacity className="absolute bottom-0 right-1/2 translate-x-8 bg-blue-600 p-2 rounded-full">
+              <TouchableOpacity style={tw`absolute bottom-0 bg-blue-600 p-2 rounded-full`}>
                 <Camera size={16} color="#FFFFFF" />
               </TouchableOpacity>
             </View>
@@ -179,10 +180,10 @@ export const CompleteProfileScreen = () => {
               style={{ marginTop: 24 }}
             />
 
-            <Text className="text-xs text-gray-500 text-center mt-6 leading-5">
+            <Text style={tw`text-xs text-gray-500 text-center mt-6`}>
               By creating an account, you agree to our{'\n'}
-              <Text className="text-blue-600">Terms of Service</Text> and{' '}
-              <Text className="text-blue-600">Privacy Policy</Text>
+              <Text style={tw`text-blue-600`}>Terms of Service</Text> and{' '}
+              <Text style={tw`text-blue-600`}>Privacy Policy</Text>
             </Text>
           </View>
         </ScrollView>

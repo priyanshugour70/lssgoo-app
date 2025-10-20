@@ -10,15 +10,16 @@ import { router } from 'expo-router';
 import { ChevronLeft, Phone } from 'lucide-react-native';
 import React, { useState } from 'react';
 import {
-  KeyboardAvoidingView,
-  Platform,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  View,
+    KeyboardAvoidingView,
+    Platform,
+    ScrollView,
+    Text,
+    TouchableOpacity,
+    View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
+import tw from 'twrnc';
 import { authApi } from '../api/authApi';
 
 export const LoginScreen = () => {
@@ -71,36 +72,36 @@ export const LoginScreen = () => {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-white">
+    <SafeAreaView style={tw`flex-1 bg-white`}>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        className="flex-1"
+        style={tw`flex-1`}
       >
         <ScrollView
-          className="flex-1 px-6"
+          style={tw`flex-1 px-6`}
           contentContainerStyle={{ flexGrow: 1 }}
           showsVerticalScrollIndicator={false}
         >
           <TouchableOpacity
-            className="mt-4 mb-6"
+            style={tw`mt-4 mb-6`}
             onPress={() => router.back()}
           >
             <ChevronLeft size={24} color="#111827" />
           </TouchableOpacity>
 
-          <View className="mb-10">
-            <Text className="text-3xl font-bold text-blue-600 mb-6">
+          <View style={tw`mb-10`}>
+            <Text style={tw`text-3xl font-bold text-blue-600 mb-6`}>
               {COMPANY_INFO.displayName}
             </Text>
-            <Text className="text-3xl font-bold text-gray-900 mb-3">
+            <Text style={tw`text-3xl font-bold text-gray-900 mb-3`}>
               Welcome Back!
             </Text>
-            <Text className="text-base text-gray-600">
+            <Text style={tw`text-base text-gray-600`}>
               Enter your phone number to receive a verification code
             </Text>
           </View>
 
-          <View className="flex-1">
+          <View style={tw`flex-1`}>
             <InputField
               label="Phone Number"
               placeholder="+91 9876543210"
@@ -117,26 +118,26 @@ export const LoginScreen = () => {
               style={{ marginTop: 24 }}
             />
 
-            <View className="flex-row items-center justify-center my-8">
-              <View className="flex-1 h-px bg-gray-200" />
-              <Text className="mx-4 text-sm text-gray-500">OR</Text>
-              <View className="flex-1 h-px bg-gray-200" />
+            <View style={tw`flex-row items-center justify-center my-8`}>
+              <View style={tw`flex-1 h-px bg-gray-200`} />
+              <Text style={tw`mx-4 text-sm text-gray-500`}>OR</Text>
+              <View style={tw`flex-1 h-px bg-gray-200`} />
             </View>
 
             <TouchableOpacity
-              className="items-center"
+              style={tw`items-center`}
               onPress={() => router.push('/auth/signup')}
             >
-              <Text className="text-base text-gray-600">
+              <Text style={tw`text-base text-gray-600`}>
                 Don't have an account?{' '}
-                <Text className="font-semibold text-blue-600">Sign Up</Text>
+                <Text style={tw`font-semibold text-blue-600`}>Sign Up</Text>
               </Text>
             </TouchableOpacity>
           </View>
 
-          <View className="items-center py-6">
-            <Phone size={40} color="#3B82F6" className="mb-3" />
-            <Text className="text-sm text-gray-600 text-center">
+          <View style={tw`items-center py-6`}>
+            <Phone size={40} color="#3B82F6" style={tw`mb-3`} />
+            <Text style={tw`text-sm text-gray-600 text-center`}>
               We'll send you a 4-digit verification code via SMS
             </Text>
           </View>

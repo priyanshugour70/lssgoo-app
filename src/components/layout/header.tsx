@@ -3,12 +3,12 @@
  * Main header with hamburger menu, logo, search, and notifications
  */
 
+import { Bell, Menu, Search } from 'lucide-react-native';
 import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import { Menu, Search, Bell } from 'lucide-react-native';
-import { HeaderProps } from '../../types';
-import { Colors } from '../../constants/theme';
+import { Text, TouchableOpacity, View } from 'react-native';
+import tw from 'twrnc';
 import { COMPANY_INFO } from '../../constants/company-info';
+import { HeaderProps } from '../../types';
 
 export const Header: React.FC<HeaderProps> = ({
   title,
@@ -19,44 +19,44 @@ export const Header: React.FC<HeaderProps> = ({
   onMenuPress,
 }) => {
   return (
-    <View className="flex-row items-center justify-between px-5 py-4 bg-white border-b border-gray-200 shadow-sm">
-      <View className="flex-row items-center flex-1">
+    <View style={tw`flex-row items-center justify-between px-5 py-4 bg-white border-b border-gray-200 shadow-sm`}>
+      <View style={tw`flex-row items-center flex-1`}>
         <TouchableOpacity
-          className="p-2 mr-4"
+          style={tw`p-2 mr-4`}
           onPress={onMenuPress}
           accessibilityLabel="Open menu"
         >
-          <Menu size={24} color={Colors.text} />
+          <Menu size={24} color="#111827" />
         </TouchableOpacity>
         
-        <Text className="text-2xl font-bold text-primary-500 mr-2">
+        <Text style={tw`text-2xl font-bold text-blue-600 mr-2`}>
           {COMPANY_INFO.displayName}
         </Text>
         {title && (
-          <Text className="text-lg font-semibold text-gray-900">
+          <Text style={tw`text-lg font-semibold text-gray-900`}>
             {title}
           </Text>
         )}
       </View>
       
-      <View className="flex-row items-center space-x-3">
+      <View style={tw`flex-row items-center gap-3`}>
         {showSearch && (
           <TouchableOpacity
-            className="p-2 rounded-full bg-gray-50"
+            style={tw`p-2 rounded-full bg-gray-50`}
             onPress={onSearchPress}
             accessibilityLabel="Search trips"
           >
-            <Search size={20} color={Colors.icon} />
+            <Search size={20} color="#6B7280" />
           </TouchableOpacity>
         )}
         
         {showProfile && (
           <TouchableOpacity
-            className="p-2 rounded-full bg-gray-50"
+            style={tw`p-2 rounded-full bg-gray-50`}
             onPress={onProfilePress}
             accessibilityLabel="Notifications"
           >
-            <Bell size={20} color={Colors.icon} />
+            <Bell size={20} color="#6B7280" />
           </TouchableOpacity>
         )}
       </View>

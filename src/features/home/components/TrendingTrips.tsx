@@ -7,12 +7,13 @@ import { formatCurrency } from '@/utils/currency';
 import { MapPin, Star } from 'lucide-react-native';
 import React from 'react';
 import {
-    Image,
-    ScrollView,
-    Text,
-    TouchableOpacity,
-    View,
+  Image,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
+import tw from 'twrnc';
 import { Trip } from '../types/homeTypes';
 
 interface TrendingTripsProps {
@@ -33,34 +34,34 @@ export const TrendingTrips: React.FC<TrendingTripsProps> = ({
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
-        className="px-4"
+        style={tw`px-4`}
         contentContainerStyle={{ gap: 16 }}
       >
         {trips.map((trip) => (
           <TouchableOpacity
             key={trip.id}
-            className="w-72 bg-white rounded-2xl overflow-hidden shadow-md"
+            style={tw`w-72 bg-white rounded-2xl overflow-hidden shadow-md`}
             onPress={() => onTripPress?.(trip)}
             activeOpacity={0.8}
           >
-            <Image source={{ uri: trip.imageUrl }} className="w-full h-48" resizeMode="cover" />
-            <View className="p-4">
-              <Text className="text-lg font-bold text-gray-900 mb-2" numberOfLines={1}>
+            <Image source={{ uri: trip.imageUrl }} style={tw`w-full h-48`} resizeMode="cover" />
+            <View style={tw`p-4`}>
+              <Text style={tw`text-lg font-bold text-gray-900 mb-2`} numberOfLines={1}>
                 {trip.title}
               </Text>
-              <View className="flex-row items-center mb-3">
+              <View style={tw`flex-row items-center mb-3`}>
                 <MapPin size={14} color="#6B7280" />
-                <Text className="text-sm text-gray-600 ml-1 flex-1" numberOfLines={1}>
+                <Text style={tw`text-sm text-gray-600 ml-1 flex-1`} numberOfLines={1}>
                   {trip.destination}
                 </Text>
               </View>
-              <View className="flex-row items-center justify-between">
-                <View className="flex-row items-center">
+              <View style={tw`flex-row items-center justify-between`}>
+                <View style={tw`flex-row items-center`}>
                   <Star size={14} color="#F59E0B" fill="#F59E0B" />
-                  <Text className="text-sm font-medium text-gray-900 ml-1">{trip.rating}</Text>
-                  <Text className="text-xs text-gray-500 ml-1">({trip.reviewCount})</Text>
+                  <Text style={tw`text-sm font-medium text-gray-900 ml-1`}>{trip.rating}</Text>
+                  <Text style={tw`text-xs text-gray-500 ml-1`}>({trip.reviewCount})</Text>
                 </View>
-                <Text className="text-lg font-bold text-blue-600">{formatCurrency(trip.price)}</Text>
+                <Text style={tw`text-lg font-bold text-blue-600`}>{formatCurrency(trip.price)}</Text>
               </View>
             </View>
           </TouchableOpacity>
@@ -68,11 +69,11 @@ export const TrendingTrips: React.FC<TrendingTripsProps> = ({
         
         {onViewAllPress && (
           <TouchableOpacity
-            className="w-32 bg-blue-50 rounded-2xl items-center justify-center"
+            style={tw`w-32 bg-blue-50 rounded-2xl items-center justify-center`}
             onPress={onViewAllPress}
             activeOpacity={0.8}
           >
-            <Text className="text-blue-600 font-semibold">View All</Text>
+            <Text style={tw`text-blue-600 font-semibold`}>View All</Text>
           </TouchableOpacity>
         )}
       </ScrollView>

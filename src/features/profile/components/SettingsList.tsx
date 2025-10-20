@@ -2,10 +2,10 @@
  * LssGoo Travel App - Settings List Component
  */
 
-import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { ChevronRight } from 'lucide-react-native';
-import { Colors } from '@/app/constants/theme';
+import React from 'react';
+import { Text, TouchableOpacity, View } from 'react-native';
+import tw from 'twrnc';
 import { MenuItem } from '../types/profileTypes';
 
 interface SettingsListProps {
@@ -15,80 +15,31 @@ interface SettingsListProps {
 
 export const SettingsList: React.FC<SettingsListProps> = ({ items, onItemPress }) => {
   return (
-    <View style={styles.container}>
+    <View style={tw`bg-white rounded-xl overflow-hidden shadow-md`}>
       {items.map((item, index) => {
         const IconComponent = item.icon;
         return (
           <TouchableOpacity
             key={index}
-            style={styles.item}
+            style={tw`flex-row items-center justify-between px-5 py-4 border-b border-gray-100`}
             onPress={() => onItemPress?.(index)}
           >
-            <View style={styles.itemLeft}>
-              <View style={styles.iconContainer}>
-                <IconComponent size={20} color={Colors.primary} />
+            <View style={tw`flex-row items-center flex-1`}>
+              <View style={tw`w-10 h-10 rounded-full bg-blue-50 items-center justify-center mr-4`}>
+                <IconComponent size={20} color="#3B82F6" />
               </View>
-              <View style={styles.itemText}>
-                <Text style={styles.title}>{item.title}</Text>
-                <Text style={styles.subtitle}>{item.subtitle}</Text>
+              <View style={tw`flex-1`}>
+                <Text style={tw`text-base font-medium text-gray-900 mb-0.5`}>{item.title}</Text>
+                <Text style={tw`text-sm text-gray-600`}>{item.subtitle}</Text>
               </View>
             </View>
-            <ChevronRight size={20} color={Colors.icon} />
+            <ChevronRight size={20} color="#6B7280" />
           </TouchableOpacity>
         );
       })}
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: Colors.card,
-    borderRadius: 12,
-    overflow: 'hidden',
-    shadowColor: Colors.cardShadow,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 3,
-  },
-  item: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 20,
-    paddingVertical: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: Colors.borderLight,
-  },
-  itemLeft: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    flex: 1,
-  },
-  iconContainer: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    backgroundColor: Colors.primary + '15',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginRight: 16,
-  },
-  itemText: {
-    flex: 1,
-  },
-  title: {
-    fontSize: 16,
-    fontWeight: '500',
-    color: Colors.text,
-    marginBottom: 2,
-  },
-  subtitle: {
-    fontSize: 14,
-    color: Colors.textSecondary,
-  },
-});
 
 export default SettingsList;
 

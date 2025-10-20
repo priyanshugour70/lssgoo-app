@@ -5,13 +5,14 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import {
-  Dimensions,
-  Image,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  View,
+    Dimensions,
+    Image,
+    ScrollView,
+    Text,
+    TouchableOpacity,
+    View,
 } from 'react-native';
+import tw from 'twrnc';
 import { CarouselProps } from '../../types';
 
 const { width: screenWidth } = Dimensions.get('window');
@@ -50,7 +51,7 @@ export const Carousel: React.FC<CarouselProps> = ({
   }
 
   return (
-    <View className="my-4" style={{ height: 200 }}>
+    <View style={[tw`my-4`, { height: 200 }]}>
       <ScrollView
         ref={scrollViewRef}
         horizontal
@@ -62,25 +63,23 @@ export const Carousel: React.FC<CarouselProps> = ({
         {items.map((item) => (
           <TouchableOpacity
             key={item.id}
-            className="relative"
-            style={{ width: screenWidth, height: 200 }}
+            style={[tw`relative`, { width: screenWidth, height: 200 }]}
             onPress={item.action}
             activeOpacity={0.9}
           >
             <Image 
               source={{ uri: item.imageUrl }} 
-              className="w-full h-full"
-              style={{ resizeMode: 'cover' }}
+              style={tw`w-full h-full`}
+              resizeMode="cover"
             />
             <View 
-              className="absolute bottom-0 left-0 right-0 p-4"
-              style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
+              style={[tw`absolute bottom-0 left-0 right-0 p-4`, { backgroundColor: 'rgba(0, 0, 0, 0.5)' }]}
             >
-              <Text className="text-xl font-bold text-white mb-1">
+              <Text style={tw`text-xl font-bold text-white mb-1`}>
                 {item.title}
               </Text>
               {item.subtitle && (
-                <Text className="text-sm text-white opacity-90">
+                <Text style={tw`text-sm text-white opacity-90`}>
                   {item.subtitle}
                 </Text>
               )}
@@ -90,11 +89,11 @@ export const Carousel: React.FC<CarouselProps> = ({
       </ScrollView>
       
       {items.length > 1 && (
-        <View className="flex-row justify-center items-center mt-3 gap-2">
+        <View style={tw`flex-row justify-center items-center mt-3 gap-2`}>
           {items.map((_, index) => (
             <View
               key={index}
-              className={`h-2 rounded ${
+              style={tw`h-2 rounded ${
                 index === currentIndex 
                   ? 'w-6 bg-blue-600' 
                   : 'w-2 bg-gray-400'

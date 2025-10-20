@@ -8,6 +8,7 @@ import { useAuthStore } from '@/store/authStore';
 import { Redirect } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, View } from 'react-native';
+import tw from 'twrnc';
 
 export default function Index() {
   const [isLoading, setIsLoading] = useState(true);
@@ -35,7 +36,7 @@ export default function Index() {
 
   if (isLoading) {
     return (
-      <View className="flex-1 items-center justify-center bg-white">
+      <View style={tw`flex-1 items-center justify-center bg-white`}>
         <ActivityIndicator size="large" color="#3B82F6" />
       </View>
     );

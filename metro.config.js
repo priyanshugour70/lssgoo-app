@@ -1,5 +1,4 @@
 const { getDefaultConfig } = require('expo/metro-config');
-const { withNativeWind } = require('nativewind/metro');
 const path = require('path');
 
 const config = getDefaultConfig(__dirname);
@@ -9,4 +8,14 @@ config.resolver.alias = {
   '@': path.resolve(__dirname, 'src'),
 };
 
-module.exports = withNativeWind(config, { input: './src/styles/globals.css' });
+// Fix for expo/virtual/rsc missing module
+config.resolver.resolveRequest = (context, moduleName, platform) => {
+  if (moduleName === 'expo/virtual/rsc') {
+    return {
+      type: 'empty',
+    };
+  }
+  return context.resolveRequest(context, moduleName, platform);
+};
+
+module.exports = config;

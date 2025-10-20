@@ -9,6 +9,7 @@ import { router } from 'expo-router';
 import React from 'react';
 import { ActivityIndicator, Alert, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import tw from 'twrnc';
 import { HeroBanner, OffersCarousel, TrendingTrips } from '../components';
 import { useHomeData } from '../hooks/useHomeData';
 import { Trip } from '../types/homeTypes';
@@ -51,19 +52,19 @@ export const HomeScreen = () => {
 
   if (loading) {
     return (
-      <SafeAreaView className="flex-1 bg-white">
-        <View className="flex-1 justify-center items-center">
+      <SafeAreaView style={tw`flex-1 bg-white`}>
+        <View style={tw`flex-1 justify-center items-center`}>
           <ActivityIndicator size="large" color="#3B82F6" />
-          <Text className="mt-4 text-base text-gray-600">Loading amazing destinations...</Text>
+          <Text style={tw`mt-4 text-base text-gray-600`}>Loading amazing destinations...</Text>
         </View>
       </SafeAreaView>
     );
   }
 
   return (
-    <SafeAreaView className="flex-1 bg-gray-50">
+    <SafeAreaView style={tw`flex-1 bg-gray-50`}>
       <ScrollView 
-        className="flex-1"
+        style={tw`flex-1`}
         showsVerticalScrollIndicator={false}
       >
         {/* Hero Banner */}
@@ -83,10 +84,10 @@ export const HomeScreen = () => {
 
         {/* Popular Trips */}
         {popularTrips && popularTrips.length > 0 && (
-          <View className="mb-6">
-            <View className="px-4 mb-4">
-              <Text className="text-2xl font-bold text-gray-900">Popular Destinations</Text>
-              <Text className="text-sm text-gray-600 mt-1">Explore the most loved destinations</Text>
+          <View style={tw`mb-6`}>
+            <View style={tw`px-4 mb-4`}>
+              <Text style={tw`text-2xl font-bold text-gray-900`}>Popular Destinations</Text>
+              <Text style={tw`text-sm text-gray-600 mt-1`}>Explore the most loved destinations</Text>
             </View>
             <TrendingTrips
               trips={popularTrips}
@@ -98,10 +99,10 @@ export const HomeScreen = () => {
 
         {/* Featured Trips */}
         {featuredTrips && featuredTrips.length > 0 && (
-          <View className="mb-6">
-            <View className="px-4 mb-4">
-              <Text className="text-2xl font-bold text-gray-900">Featured Trips</Text>
-              <Text className="text-sm text-gray-600 mt-1">Hand-picked experiences just for you</Text>
+          <View style={tw`mb-6`}>
+            <View style={tw`px-4 mb-4`}>
+              <Text style={tw`text-2xl font-bold text-gray-900`}>Featured Trips</Text>
+              <Text style={tw`text-sm text-gray-600 mt-1`}>Hand-picked experiences just for you</Text>
             </View>
             <TrendingTrips
               trips={featuredTrips}
@@ -112,7 +113,7 @@ export const HomeScreen = () => {
         )}
 
         {/* Footer Space */}
-        <View className="h-6" />
+        <View style={tw`h-6`} />
       </ScrollView>
     </SafeAreaView>
   );

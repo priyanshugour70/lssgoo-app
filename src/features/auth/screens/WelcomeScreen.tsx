@@ -15,6 +15,7 @@ import {
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import tw from 'twrnc';
 
 const { width, height } = Dimensions.get('window');
 
@@ -32,76 +33,58 @@ export const WelcomeScreen = () => {
   console.log('WelcomeScreen rendering');
 
   return (
-    <View style={{ flex: 1, backgroundColor: '#1e3a8a' }}>
+    <View style={tw`flex-1 bg-blue-900`}>
       <Image
         source={{ uri: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800' }}
-        style={{ width, height, position: 'absolute' }}
+        style={[tw`absolute`, { width, height }]}
         resizeMode="cover"
       />
       
       <LinearGradient
         colors={['rgba(0,0,0,0.3)', 'rgba(0,0,0,0.7)']}
-        style={{ width, height, position: 'absolute' }}
+        style={[tw`absolute`, { width, height }]}
       />
 
-      <SafeAreaView style={{ flex: 1, justifyContent: 'space-between' }}>
-        <View style={{ paddingTop: 40, alignItems: 'center' }}>
-          <Text style={{ fontSize: 36, fontWeight: 'bold', color: 'white', marginBottom: 8 }}>
+      <SafeAreaView style={tw`flex-1 justify-between`}>
+        <View style={tw`pt-10 items-center`}>
+          <Text style={tw`text-4xl font-bold text-white mb-2`}>
             {COMPANY_INFO.displayName}
           </Text>
-          <Text style={{ fontSize: 16, color: 'white', opacity: 0.9 }}>
+          <Text style={tw`text-base text-white opacity-90`}>
             {COMPANY_INFO.tagline}
           </Text>
         </View>
 
-        <View style={{ paddingHorizontal: 24, paddingBottom: 32 }}>
-          <Text style={{ fontSize: 28, fontWeight: 'bold', color: 'white', marginBottom: 12, textAlign: 'center' }}>
+        <View style={tw`px-6 pb-8`}>
+          <Text style={tw`text-3xl font-bold text-white mb-3 text-center`}>
             Welcome to Your Next Adventure
           </Text>
-          <Text style={{ fontSize: 16, color: 'white', opacity: 0.9, textAlign: 'center', marginBottom: 32 }}>
+          <Text style={tw`text-base text-white opacity-90 text-center mb-8`}>
             Discover amazing places and create unforgettable memories with {COMPANY_INFO.displayName}
           </Text>
 
           <TouchableOpacity
-            style={{
-              backgroundColor: '#2563eb',
-              paddingVertical: 16,
-              borderRadius: 12,
-              alignItems: 'center',
-              marginBottom: 16,
-              shadowColor: '#000',
-              shadowOffset: { width: 0, height: 4 },
-              shadowOpacity: 0.3,
-              shadowRadius: 8,
-              elevation: 6,
-            }}
+            style={tw`bg-blue-600 py-4 rounded-xl items-center mb-4 shadow-lg`}
             onPress={handleSignup}
             activeOpacity={0.8}
           >
-            <Text style={{ color: 'white', fontSize: 18, fontWeight: '600' }}>Get Started</Text>
+            <Text style={tw`text-white text-lg font-semibold`}>Get Started</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
-            style={{
-              backgroundColor: 'rgba(255,255,255,0.2)',
-              paddingVertical: 16,
-              borderRadius: 12,
-              alignItems: 'center',
-              borderWidth: 1,
-              borderColor: 'rgba(255,255,255,0.3)',
-            }}
+            style={tw`bg-white bg-opacity-20 py-4 rounded-xl items-center border border-white border-opacity-30`}
             onPress={handleLogin}
             activeOpacity={0.8}
           >
-            <Text style={{ color: 'white', fontSize: 16, fontWeight: '500' }}>
+            <Text style={tw`text-white text-base font-medium`}>
               I Already Have an Account
             </Text>
           </TouchableOpacity>
 
-          <Text style={{ fontSize: 12, color: 'rgba(255,255,255,0.7)', textAlign: 'center', marginTop: 24 }}>
+          <Text style={tw`text-xs text-white opacity-70 text-center mt-6`}>
             By continuing, you agree to our{'\n'}
-            <Text style={{ textDecorationLine: 'underline' }}>Terms of Service</Text> and{' '}
-            <Text style={{ textDecorationLine: 'underline' }}>Privacy Policy</Text>
+            <Text style={tw`underline`}>Terms of Service</Text> and{' '}
+            <Text style={tw`underline`}>Privacy Policy</Text>
           </Text>
         </View>
       </SafeAreaView>

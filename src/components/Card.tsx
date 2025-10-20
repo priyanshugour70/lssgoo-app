@@ -5,6 +5,7 @@
 
 import React from 'react';
 import { TouchableOpacity, View, ViewStyle } from 'react-native';
+import tw from 'twrnc';
 
 interface CardProps {
   children: React.ReactNode;
@@ -55,8 +56,7 @@ export const Card: React.FC<CardProps> = ({
   if (onPress) {
     return (
       <TouchableOpacity
-        className={cardClasses}
-        style={style}
+        style={[tw`${cardClasses}`, style]}
         onPress={onPress}
         activeOpacity={0.8}
       >
@@ -66,7 +66,7 @@ export const Card: React.FC<CardProps> = ({
   }
 
   return (
-    <View className={cardClasses} style={style}>
+    <View style={[tw`${cardClasses}`, style]}>
       {children}
     </View>
   );
