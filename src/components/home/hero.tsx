@@ -9,13 +9,10 @@ import React from 'react';
 import {
   Dimensions,
   ImageBackground,
-  StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
-import { BRAND_COLORS, Colors } from '../../constants/theme';
-import { useColorScheme } from '../../hooks/use-color-scheme';
 import { HeroProps } from '../../types';
 
 const { width: screenWidth } = Dimensions.get('window');
@@ -26,109 +23,63 @@ export const Hero: React.FC<HeroProps> = ({
   backgroundImage,
   onExplorePress,
 }) => {
-  const colorScheme = useColorScheme();
-  const colors = Colors[colorScheme ?? 'light'];
-
-  const styles = StyleSheet.create({
-    container: {
-      height: 300,
-      width: screenWidth,
-      marginVertical: 16,
-      borderRadius: 16,
-      overflow: 'hidden',
-      marginHorizontal: 16,
-    },
-    backgroundImage: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    overlay: {
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
-    },
-    content: {
-      alignItems: 'center',
-      paddingHorizontal: 24,
-      zIndex: 1,
-    },
-    title: {
-      fontSize: 32,
-      fontWeight: 'bold',
-      color: BRAND_COLORS.white,
-      textAlign: 'center',
-      marginBottom: 12,
-      textShadowColor: 'rgba(0, 0, 0, 0.5)',
-      textShadowOffset: { width: 0, height: 2 },
-      textShadowRadius: 4,
-    },
-    subtitle: {
-      fontSize: 16,
-      color: BRAND_COLORS.white,
-      textAlign: 'center',
-      marginBottom: 24,
-      opacity: 0.9,
-      textShadowColor: 'rgba(0, 0, 0, 0.5)',
-      textShadowOffset: { width: 0, height: 1 },
-      textShadowRadius: 2,
-    },
-    exploreButton: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      backgroundColor: colors.primary,
-      paddingHorizontal: 24,
-      paddingVertical: 12,
-      borderRadius: 25,
-      shadowColor: BRAND_COLORS.black,
-      shadowOffset: {
-        width: 0,
-        height: 4,
-      },
-      shadowOpacity: 0.3,
-      shadowRadius: 4.65,
-      elevation: 8,
-    },
-    buttonText: {
-      fontSize: 16,
-      fontWeight: '600',
-      color: BRAND_COLORS.white,
-      marginRight: 8,
-    },
-    buttonIcon: {
-      marginLeft: 4,
-    },
-  });
-
   return (
-    <View style={styles.container}>
+    <View 
+      className="mx-4 my-4 rounded-2xl overflow-hidden"
+      style={{ height: 300, width: screenWidth - 32 }}
+    >
       <ImageBackground
         source={{ uri: backgroundImage }}
-        style={styles.backgroundImage}
+        className="flex-1 justify-center items-center"
         resizeMode="cover"
       >
         <LinearGradient
           colors={['rgba(0, 0, 0, 0.3)', 'rgba(0, 0, 0, 0.6)']}
-          style={styles.overlay}
+          className="absolute inset-0"
         />
         
-        <View style={styles.content}>
-          <Text style={styles.title}>{title}</Text>
-          <Text style={styles.subtitle}>{subtitle}</Text>
+        <View className="items-center px-6 z-10">
+          <Text 
+            className="text-3xl font-bold text-white text-center mb-3"
+            style={{
+              textShadowColor: 'rgba(0, 0, 0, 0.5)',
+              textShadowOffset: { width: 0, height: 2 },
+              textShadowRadius: 4,
+            }}
+          >
+            {title}
+          </Text>
+          <Text 
+            className="text-base text-white text-center mb-6 opacity-90"
+            style={{
+              textShadowColor: 'rgba(0, 0, 0, 0.5)',
+              textShadowOffset: { width: 0, height: 1 },
+              textShadowRadius: 2,
+            }}
+          >
+            {subtitle}
+          </Text>
           
           <TouchableOpacity
-            style={styles.exploreButton}
+            className="flex-row items-center bg-blue-600 px-6 py-3 rounded-full shadow-lg"
             onPress={onExplorePress}
             accessibilityLabel="Explore destinations"
+            style={{
+              shadowColor: '#000000',
+              shadowOffset: { width: 0, height: 4 },
+              shadowOpacity: 0.3,
+              shadowRadius: 4.65,
+              elevation: 8,
+            }}
           >
-            <Text style={styles.buttonText}>Explore Now</Text>
+            <Text className="text-base font-semibold text-white mr-2">
+              Explore Now
+            </Text>
             <Ionicons
               name="arrow-forward"
               size={20}
-              color={BRAND_COLORS.white}
-              style={styles.buttonIcon}
+              color="#FFFFFF"
+              className="ml-1"
             />
           </TouchableOpacity>
         </View>

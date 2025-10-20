@@ -1,0 +1,49 @@
+{
+  "common": {
+    "appName": "LssGoo",
+    "tagline": "चलो चलें खोजने",
+    "loading": "लोड हो रहा है...",
+    "error": "त्रुटि",
+    "success": "सफलता",
+    "cancel": "रद्द करें",
+    "confirm": "पुष्टि करें",
+    "save": "सहेजें",
+    "delete": "हटाएं",
+    "edit": "संपादित करें",
+    "close": "बंद करें"
+  },
+  "navigation": {
+    "home": "होम",
+    "explore": "खोजें",
+    "bookings": "मेरी यात्राएं",
+    "profile": "प्रोफ़ाइल",
+    "search": "खोज"
+  },
+  "home": {
+    "welcome": "LssGoo में आपका स्वागत है",
+    "discoverTitle": "अद्भुत स्थानों की खोज करें",
+    "discoverSubtitle": "LssGoo के साथ दुनिया का अन्वेषण करें और अविस्मरणीय यादें बनाएं",
+    "exploreNow": "अभी खोजें",
+    "featuredTrips": "विशेष यात्राएं",
+    "popularDestinations": "लोकप्रिय गंतव्य",
+    "viewAll": "सभी देखें"
+  },
+  "bookings": {
+    "title": "मेरी यात्राएं",
+    "upcoming": "आगामी",
+    "past": "पिछला",
+    "saved": "सहेजा गया",
+    "confirmed": "पुष्टि",
+    "pending": "लंबित",
+    "cancelled": "रद्द"
+  },
+  "profile": {
+    "title": "प्रोफ़ाइल",
+    "accountSettings": "खाता सेटिंग्स",
+    "paymentMethods": "भुगतान विधियां",
+    "notifications": "सूचनाएं",
+    "helpSupport": "सहायता और समर्थन",
+    "logout": "लॉग आउट"
+  }
+}
+

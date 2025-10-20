@@ -1,0 +1,49 @@
+{
+  "common": {
+    "appName": "LssGoo",
+    "tagline": "Let's Go Explore",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close"
+  },
+  "navigation": {
+    "home": "Home",
+    "explore": "Explore",
+    "bookings": "My Trips",
+    "profile": "Profile",
+    "search": "Search"
+  },
+  "home": {
+    "welcome": "Welcome to LssGoo",
+    "discoverTitle": "Discover Amazing Places",
+    "discoverSubtitle": "Explore the world with LssGoo and create unforgettable memories",
+    "exploreNow": "Explore Now",
+    "featuredTrips": "Featured Trips",
+    "popularDestinations": "Popular Destinations",
+    "viewAll": "View All"
+  },
+  "bookings": {
+    "title": "My Trips",
+    "upcoming": "Upcoming",
+    "past": "Past",
+    "saved": "Saved",
+    "confirmed": "Confirmed",
+    "pending": "Pending",
+    "cancelled": "Cancelled"
+  },
+  "profile": {
+    "title": "Profile",
+    "accountSettings": "Account Settings",
+    "paymentMethods": "Payment Methods",
+    "notifications": "Notifications",
+    "helpSupport": "Help & Support",
+    "logout": "Log Out"
+  }
+}
+

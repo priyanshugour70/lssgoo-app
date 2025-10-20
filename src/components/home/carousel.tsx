@@ -3,19 +3,16 @@
  * Featured content carousel for the home screen
  */
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  ScrollView,
   Dimensions,
-  StyleSheet,
+  Image,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 import { CarouselProps } from '../../types';
-import { Colors } from '../../constants/theme';
-import { useColorScheme } from '../../hooks/use-color-scheme';
 
 const { width: screenWidth } = Dimensions.get('window');
 
@@ -24,8 +21,6 @@ export const Carousel: React.FC<CarouselProps> = ({
   autoPlay = true,
   interval = 3000,
 }) => {
-  const colorScheme = useColorScheme();
-  const colors = Colors[colorScheme ?? 'light'];
   const scrollViewRef = useRef<ScrollView>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -50,88 +45,44 @@ export const Carousel: React.FC<CarouselProps> = ({
     setCurrentIndex(index);
   };
 
-  const styles = StyleSheet.create({
-    container: {
-      height: 200,
-      marginVertical: 16,
-    },
-    scrollView: {
-      height: 200,
-    },
-    slide: {
-      width: screenWidth,
-      height: 200,
-      position: 'relative',
-    },
-    image: {
-      width: '100%',
-      height: '100%',
-      resizeMode: 'cover',
-    },
-    overlay: {
-      position: 'absolute',
-      bottom: 0,
-      left: 0,
-      right: 0,
-      backgroundColor: 'rgba(0, 0, 0, 0.5)',
-      padding: 16,
-    },
-    title: {
-      fontSize: 20,
-      fontWeight: 'bold',
-      color: '#FFFFFF',
-      marginBottom: 4,
-    },
-    subtitle: {
-      fontSize: 14,
-      color: '#FFFFFF',
-      opacity: 0.9,
-    },
-    pagination: {
-      flexDirection: 'row',
-      justifyContent: 'center',
-      alignItems: 'center',
-      marginTop: 12,
-      gap: 8,
-    },
-    dot: {
-      width: 8,
-      height: 8,
-      borderRadius: 4,
-      backgroundColor: colors.icon,
-    },
-    activeDot: {
-      backgroundColor: colors.primary,
-      width: 24,
-    },
-  });
-
   if (!items.length) {
     return null;
   }
 
   return (
-    <View style={styles.container}>
+    <View className="my-4" style={{ height: 200 }}>
       <ScrollView
         ref={scrollViewRef}
         horizontal
         pagingEnabled
         showsHorizontalScrollIndicator={false}
         onMomentumScrollEnd={handleScroll}
-        style={styles.scrollView}
+        style={{ height: 200 }}
       >
         {items.map((item) => (
           <TouchableOpacity
             key={item.id}
-            style={styles.slide}
+            className="relative"
+            style={{ width: screenWidth, height: 200 }}
             onPress={item.action}
             activeOpacity={0.9}
           >
-            <Image source={{ uri: item.imageUrl }} style={styles.image} />
-            <View style={styles.overlay}>
-              <Text style={styles.title}>{item.title}</Text>
+            <Image 
+              source={{ uri: item.imageUrl }} 
+              className="w-full h-full"
+              style={{ resizeMode: 'cover' }}
+            />
+            <View 
+              className="absolute bottom-0 left-0 right-0 p-4"
+              style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
+            >
+              <Text className="text-xl font-bold text-white mb-1">
+                {item.title}
+              </Text>
               {item.subtitle && (
-                <Text style={styles.subtitle}>{item.subtitle}</Text>
+                <Text className="text-sm text-white opacity-90">
+                  {item.subtitle}
+                </Text>
               )}
             </View>
           </TouchableOpacity>
@@ -139,14 +90,15 @@ export const Carousel: React.FC<CarouselProps> = ({
       </ScrollView>
       
       {items.length > 1 && (
-        <View style={styles.pagination}>
+        <View className="flex-row justify-center items-center mt-3 gap-2">
           {items.map((_, index) => (
             <View
               key={index}
-              style={[
-                styles.dot,
-                index === currentIndex && styles.activeDot,
-              ]}
+              className={`h-2 rounded ${
+                index === currentIndex 
+                  ? 'w-6 bg-blue-600' 
+                  : 'w-2 bg-gray-400'
+              }`}
             />
           ))}
         </View>

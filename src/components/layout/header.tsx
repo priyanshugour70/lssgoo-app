@@ -1,127 +1,62 @@
 /**
  * LssGoo Travel App - Header Component
- * Main header with logo, search, profile, and theme toggle
+ * Main header with hamburger menu, logo, search, and notifications
  */
 
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { View, Text, TouchableOpacity } from 'react-native';
+import { Menu, Search, Bell } from 'lucide-react-native';
 import { HeaderProps } from '../../types';
-import { Colors, BRAND_COLORS } from '../../constants/theme';
-import { useColorScheme } from '../../hooks/use-color-scheme';
+import { Colors } from '../../constants/theme';
 import { COMPANY_INFO } from '../../constants/company-info';
 
 export const Header: React.FC<HeaderProps> = ({
   title,
   showSearch = true,
   showProfile = true,
-  showThemeToggle = true,
   onSearchPress,
   onProfilePress,
-  onThemeToggle,
+  onMenuPress,
 }) => {
-  const colorScheme = useColorScheme();
-  const colors = Colors[colorScheme ?? 'light'];
-
-  const styles = StyleSheet.create({
-    container: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      paddingHorizontal: 16,
-      paddingVertical: 12,
-      backgroundColor: colors.background,
-      borderBottomWidth: 1,
-      borderBottomColor: colors.border,
-      shadowColor: colors.text,
-      shadowOffset: {
-        width: 0,
-        height: 2,
-      },
-      shadowOpacity: 0.1,
-      shadowRadius: 3.84,
-      elevation: 5,
-    },
-    leftSection: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      flex: 1,
-    },
-    logo: {
-      fontSize: 24,
-      fontWeight: 'bold',
-      color: colors.primary,
-      marginRight: 8,
-    },
-    title: {
-      fontSize: 18,
-      fontWeight: '600',
-      color: colors.text,
-    },
-    rightSection: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: 12,
-    },
-    iconButton: {
-      padding: 8,
-      borderRadius: 20,
-      backgroundColor: colors.surface,
-    },
-    themeToggle: {
-      padding: 8,
-      borderRadius: 20,
-      backgroundColor: colors.primary,
-    },
-  });
-
   return (
-    <View style={styles.container}>
-      <View style={styles.leftSection}>
-        <Text style={styles.logo}>{COMPANY_INFO.displayName}</Text>
-        {title && <Text style={styles.title}>{title}</Text>}
+    <View className="flex-row items-center justify-between px-5 py-4 bg-white border-b border-gray-200 shadow-sm">
+      <View className="flex-row items-center flex-1">
+        <TouchableOpacity
+          className="p-2 mr-4"
+          onPress={onMenuPress}
+          accessibilityLabel="Open menu"
+        >
+          <Menu size={24} color={Colors.text} />
+        </TouchableOpacity>
+        
+        <Text className="text-2xl font-bold text-primary-500 mr-2">
+          {COMPANY_INFO.displayName}
+        </Text>
+        {title && (
+          <Text className="text-lg font-semibold text-gray-900">
+            {title}
+          </Text>
+        )}
       </View>
       
-      <View style={styles.rightSection}>
+      <View className="flex-row items-center space-x-3">
         {showSearch && (
           <TouchableOpacity
-            style={styles.iconButton}
+            className="p-2 rounded-full bg-gray-50"
             onPress={onSearchPress}
             accessibilityLabel="Search trips"
           >
-            <Ionicons
-              name="search"
-              size={20}
-              color={colors.icon}
-            />
-          </TouchableOpacity>
-        )}
-        
-        {showThemeToggle && (
-          <TouchableOpacity
-            style={styles.themeToggle}
-            onPress={onThemeToggle}
-            accessibilityLabel="Toggle theme"
-          >
-            <Ionicons
-              name={colorScheme === 'dark' ? 'sunny' : 'moon'}
-              size={20}
-              color={BRAND_COLORS.white}
-            />
+            <Search size={20} color={Colors.icon} />
           </TouchableOpacity>
         )}
         
         {showProfile && (
           <TouchableOpacity
-            style={styles.iconButton}
+            className="p-2 rounded-full bg-gray-50"
             onPress={onProfilePress}
-            accessibilityLabel="Profile"
+            accessibilityLabel="Notifications"
           >
-            <Ionicons
-              name="person-circle"
-              size={24}
-              color={colors.primary}
-            />
+            <Bell size={20} color={Colors.icon} />
           </TouchableOpacity>
         )}
       </View>
