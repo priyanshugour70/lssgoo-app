@@ -1,83 +1,50 @@
-# 🚀 LssGoo Quick Start Guide
+# Welcome to your Expo app 👋
 
-## Get Up and Running in 5 Minutes!
+This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
-### Step 1: Install Dependencies
+## Get started
+
+1. Install dependencies
+
+   ```bash
+   npm install
+   ```
+
+2. Start the app
+
+   ```bash
+   npx expo start
+   ```
+
+In the output, you'll find options to open the app in a
+
+- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
+- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
+- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
+- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+
+You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+
+## Get a fresh project
+
+When you're ready, run:
+
 ```bash
-npm install
+npm run reset-project
 ```
 
-### Step 2: iOS Setup (macOS only)
-```bash
-cd ios
-pod install
-cd ..
-```
+This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
 
-### Step 3: Run the App
+## Learn more
 
-#### iOS (macOS only):
-```bash
-npm run ios
-```
+To learn more about developing your project with Expo, look at the following resources:
 
-#### Android:
-```bash
-npm run android
-```
+- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
+- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
 
-### That's It! 🎉
+## Join the community
 
-The app should now be running on your simulator/emulator showing the Home Screen with:
-- "Welcome to LssGoo" heading
-- "Let's Go Explore" tagline
+Join our community of developers creating universal apps.
 
-## 🔧 If Something Goes Wrong
-
-### Metro Bundler Issues
-```bash
-npm start -- --reset-cache
-```
-
-### iOS Build Issues
-```bash
-cd ios
-rm -rf Pods Podfile.lock
-pod install
-cd ..
-```
-
-### Android Build Issues
-```bash
-cd android
-./gradlew clean
-cd ..
-```
-
-### Can't Find Command
-Make sure you're in the project root directory:
-```bash
-cd /Users/priyanshugour72/Desktop/lssgoo/LssGoo
-```
-
-## 📖 Next Steps
-
-1. Read `PROJECT_SETUP.md` for complete documentation
-2. Read `src/README.md` for code structure
-3. Check `SETUP_COMPLETE.md` for what's been configured
-
-## 💡 Development Tips
-
-- **Hot Reload**: Shake device/press Cmd+D (iOS) or Cmd+M (Android) for dev menu
-- **Fast Refresh**: Code changes auto-reload
-- **Console Logs**: Show in Metro bundler terminal
-
-## 📞 Need Help?
-
-- Email: info@lssgoo.com
-- Phone: +91-9098393937
-
----
-
-**Happy Coding! 🚀**
-
+- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
+- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
