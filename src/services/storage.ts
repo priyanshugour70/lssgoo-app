@@ -3,8 +3,8 @@
  * Secure storage for persisting user data
  */
 
-import * as SecureStore from 'expo-secure-store';
 import APP_CONFIG from '@/app/constants/appConfig';
+import * as SecureStore from 'expo-secure-store';
 
 class StorageService {
   private keys = APP_CONFIG.storageKeys;
@@ -140,6 +140,15 @@ class StorageService {
 
   async getFavoriteTrips(): Promise<string[]> {
     return (await this.getObject<string[]>(this.keys.favoriteTrips)) || [];
+  }
+
+  async saveOnboardingCompleted(): Promise<void> {
+    await this.setItem(this.keys.onboardingCompleted, 'true');
+  }
+
+  async hasCompletedOnboarding(): Promise<boolean> {
+    const value = await this.getItem(this.keys.onboardingCompleted);
+    return value === 'true';
   }
 }
 

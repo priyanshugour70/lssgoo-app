@@ -31,14 +31,15 @@ export const APP_CONFIG = {
     requestTimeout: 30000, // 30 seconds
   },
 
-  // Storage Keys
+  // Storage Keys (must only contain alphanumeric, ".", "-", and "_")
   storageKeys: {
-    user: '@lssgoo_user',
-    token: '@lssgoo_token',
-    theme: '@lssgoo_theme',
-    language: '@lssgoo_language',
-    recentSearches: '@lssgoo_recent_searches',
-    favoriteTrips: '@lssgoo_favorite_trips',
+    user: 'lssgoo_user',
+    token: 'lssgoo_token',
+    theme: 'lssgoo_theme',
+    language: 'lssgoo_language',
+    recentSearches: 'lssgoo_recent_searches',
+    favoriteTrips: 'lssgoo_favorite_trips',
+    onboardingCompleted: 'lssgoo_onboarding_completed',
   },
 } as const;
 

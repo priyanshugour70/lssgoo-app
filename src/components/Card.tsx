@@ -1,33 +1,76 @@
 /**
  * LssGoo Travel App - Card Component
- * Reusable card component
+ * Beautiful reusable card with Tailwind CSS
  */
 
 import React from 'react';
-import { View, StyleSheet, ViewStyle } from 'react-native';
-import { Colors } from '@/app/constants/theme';
+import { TouchableOpacity, View, ViewStyle } from 'react-native';
 
 interface CardProps {
   children: React.ReactNode;
+  variant?: 'default' | 'elevated' | 'outlined';
+  padding?: 'none' | 'small' | 'medium' | 'large';
+  onPress?: () => void;
   style?: ViewStyle;
+  className?: string;
 }
 
-export const Card: React.FC<CardProps> = ({ children, style }) => {
-  return <View style={[styles.card, style]}>{children}</View>;
-};
+export const Card: React.FC<CardProps> = ({
+  children,
+  variant = 'default',
+  padding = 'medium',
+  onPress,
+  style,
+  className,
+}) => {
+  const getVariantClasses = () => {
+    switch (variant) {
+      case 'elevated':
+        return 'bg-white shadow-lg border border-gray-100';
+      case 'outlined':
+        return 'bg-white border-2 border-gray-200';
+      case 'default':
+      default:
+        return 'bg-white shadow-md border border-gray-50';
+    }
+  };
 
-const styles = StyleSheet.create({
-  card: {
-    backgroundColor: Colors.card,
-    borderRadius: 12,
-    padding: 16,
-    shadowColor: Colors.cardShadow,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 3,
-  },
-});
+  const getPaddingClasses = () => {
+    switch (padding) {
+      case 'none':
+        return '';
+      case 'small':
+        return 'p-3';
+      case 'medium':
+        return 'p-4';
+      case 'large':
+        return 'p-6';
+      default:
+        return 'p-4';
+    }
+  };
+
+  const cardClasses = `rounded-xl ${getVariantClasses()} ${getPaddingClasses()} ${className || ''}`;
+
+  if (onPress) {
+    return (
+      <TouchableOpacity
+        className={cardClasses}
+        style={style}
+        onPress={onPress}
+        activeOpacity={0.8}
+      >
+        {children}
+      </TouchableOpacity>
+    );
+  }
+
+  return (
+    <View className={cardClasses} style={style}>
+      {children}
+    </View>
+  );
+};
 
 export default Card;
 

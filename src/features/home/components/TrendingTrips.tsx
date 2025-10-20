@@ -3,19 +3,17 @@
  * Display trending/popular trips
  */
 
+import { formatCurrency } from '@/utils/currency';
+import { MapPin, Star } from 'lucide-react-native';
 import React from 'react';
 import {
-  View,
-  Text,
-  ScrollView,
-  TouchableOpacity,
-  Image,
-  StyleSheet,
+    Image,
+    ScrollView,
+    Text,
+    TouchableOpacity,
+    View,
 } from 'react-native';
-import { MapPin, Star } from 'lucide-react-native';
-import { Colors } from '@/app/constants/theme';
 import { Trip } from '../types/homeTypes';
-import { formatCurrency } from '@/utils/currency';
 
 interface TrendingTripsProps {
   trips: Trip[];
@@ -31,140 +29,55 @@ export const TrendingTrips: React.FC<TrendingTripsProps> = ({
   if (!trips.length) return null;
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.title}>Trending Trips</Text>
-        {onViewAllPress && (
-          <TouchableOpacity onPress={onViewAllPress}>
-            <Text style={styles.viewAll}>View All</Text>
-          </TouchableOpacity>
-        )}
-      </View>
-
+    <View>
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.scrollContent}
+        className="px-4"
+        contentContainerStyle={{ gap: 16 }}
       >
         {trips.map((trip) => (
           <TouchableOpacity
             key={trip.id}
-            style={styles.card}
+            className="w-72 bg-white rounded-2xl overflow-hidden shadow-md"
             onPress={() => onTripPress?.(trip)}
             activeOpacity={0.8}
           >
-            <Image source={{ uri: trip.imageUrl }} style={styles.image} />
-            <View style={styles.cardContent}>
-              <Text style={styles.tripTitle} numberOfLines={1}>
+            <Image source={{ uri: trip.imageUrl }} className="w-full h-48" resizeMode="cover" />
+            <View className="p-4">
+              <Text className="text-lg font-bold text-gray-900 mb-2" numberOfLines={1}>
                 {trip.title}
               </Text>
-              <View style={styles.locationRow}>
-                <MapPin size={14} color={Colors.icon} />
-                <Text style={styles.destination} numberOfLines={1}>
+              <View className="flex-row items-center mb-3">
+                <MapPin size={14} color="#6B7280" />
+                <Text className="text-sm text-gray-600 ml-1 flex-1" numberOfLines={1}>
                   {trip.destination}
                 </Text>
               </View>
-              <View style={styles.footer}>
-                <View style={styles.ratingRow}>
-                  <Star size={14} color={Colors.warning} fill={Colors.warning} />
-                  <Text style={styles.rating}>{trip.rating}</Text>
-                  <Text style={styles.reviews}>({trip.reviewCount})</Text>
+              <View className="flex-row items-center justify-between">
+                <View className="flex-row items-center">
+                  <Star size={14} color="#F59E0B" fill="#F59E0B" />
+                  <Text className="text-sm font-medium text-gray-900 ml-1">{trip.rating}</Text>
+                  <Text className="text-xs text-gray-500 ml-1">({trip.reviewCount})</Text>
                 </View>
-                <Text style={styles.price}>{formatCurrency(trip.price)}</Text>
+                <Text className="text-lg font-bold text-blue-600">{formatCurrency(trip.price)}</Text>
               </View>
             </View>
           </TouchableOpacity>
         ))}
+        
+        {onViewAllPress && (
+          <TouchableOpacity
+            className="w-32 bg-blue-50 rounded-2xl items-center justify-center"
+            onPress={onViewAllPress}
+            activeOpacity={0.8}
+          >
+            <Text className="text-blue-600 font-semibold">View All</Text>
+          </TouchableOpacity>
+        )}
       </ScrollView>
     </View>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    paddingVertical: 20,
-  },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 16,
-    marginBottom: 16,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: '600',
-    color: Colors.text,
-  },
-  viewAll: {
-    fontSize: 14,
-    color: Colors.primary,
-    fontWeight: '500',
-  },
-  scrollContent: {
-    paddingHorizontal: 16,
-    gap: 16,
-  },
-  card: {
-    width: 280,
-    backgroundColor: Colors.card,
-    borderRadius: 12,
-    overflow: 'hidden',
-    shadowColor: Colors.cardShadow,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 3,
-  },
-  image: {
-    width: '100%',
-    height: 180,
-  },
-  cardContent: {
-    padding: 12,
-  },
-  tripTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: Colors.text,
-    marginBottom: 6,
-  },
-  locationRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 8,
-  },
-  destination: {
-    fontSize: 13,
-    color: Colors.textSecondary,
-    marginLeft: 4,
-    flex: 1,
-  },
-  footer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  ratingRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 4,
-  },
-  rating: {
-    fontSize: 13,
-    fontWeight: '500',
-    color: Colors.text,
-  },
-  reviews: {
-    fontSize: 12,
-    color: Colors.textMuted,
-  },
-  price: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: Colors.primary,
-  },
-});
-
 export default TrendingTrips;
-

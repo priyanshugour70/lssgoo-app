@@ -85,12 +85,6 @@
           }
         }
       ],
-      [
-        "expo-font",
-        {
-          "fonts": ["./assets/fonts/Inter.ttf"]
-        }
-      ],
       "expo-localization",
       "expo-secure-store"
     ],

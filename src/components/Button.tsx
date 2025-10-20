@@ -1,21 +1,22 @@
 /**
  * LssGoo Travel App - Button Component
- * Reusable button component
+ * Beautiful reusable button with Tailwind CSS
  */
 
 import React from 'react';
-import { TouchableOpacity, Text, StyleSheet, ActivityIndicator, ViewStyle, TextStyle } from 'react-native';
-import { Colors } from '@/app/constants/theme';
+import { ActivityIndicator, Text, TouchableOpacity, ViewStyle } from 'react-native';
 
 interface ButtonProps {
   title: string;
   onPress: () => void;
-  variant?: 'primary' | 'secondary' | 'outline';
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
   size?: 'small' | 'medium' | 'large';
   disabled?: boolean;
   loading?: boolean;
+  fullWidth?: boolean;
+  icon?: React.ReactNode;
   style?: ViewStyle;
-  textStyle?: TextStyle;
+  className?: string;
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -25,98 +26,95 @@ export const Button: React.FC<ButtonProps> = ({
   size = 'medium',
   disabled = false,
   loading = false,
+  fullWidth = true,
+  icon,
   style,
-  textStyle,
+  className,
 }) => {
-  const buttonStyles = [
-    styles.button,
-    styles[`${variant}Button`],
-    styles[`${size}Button`],
-    disabled && styles.disabledButton,
-    style,
-  ];
+  const getVariantClasses = () => {
+    switch (variant) {
+      case 'primary':
+        return 'bg-blue-600 active:bg-blue-700 shadow-md';
+      case 'secondary':
+        return 'bg-gray-600 active:bg-gray-700 shadow-md';
+      case 'outline':
+        return 'bg-transparent border-2 border-blue-600 active:bg-blue-50';
+      case 'ghost':
+        return 'bg-transparent active:bg-gray-100';
+      default:
+        return 'bg-blue-600 active:bg-blue-700 shadow-md';
+    }
+  };
 
-  const textStyles = [
-    styles.text,
-    styles[`${variant}Text`],
-    styles[`${size}Text`],
-    disabled && styles.disabledText,
-    textStyle,
-  ];
+  const getSizeClasses = () => {
+    switch (size) {
+      case 'small':
+        return 'py-2 px-4';
+      case 'medium':
+        return 'py-3 px-6';
+      case 'large':
+        return 'py-4 px-8';
+      default:
+        return 'py-3 px-6';
+    }
+  };
+
+  const getTextVariantClasses = () => {
+    switch (variant) {
+      case 'primary':
+      case 'secondary':
+        return 'text-white';
+      case 'outline':
+        return 'text-blue-600';
+      case 'ghost':
+        return 'text-gray-700';
+      default:
+        return 'text-white';
+    }
+  };
+
+  const getTextSizeClasses = () => {
+    switch (size) {
+      case 'small':
+        return 'text-sm';
+      case 'medium':
+        return 'text-base';
+      case 'large':
+        return 'text-lg';
+      default:
+        return 'text-base';
+    }
+  };
 
   return (
     <TouchableOpacity
-      style={buttonStyles}
+      className={`rounded-xl items-center justify-center flex-row ${
+        fullWidth ? 'w-full' : ''
+      } ${getVariantClasses()} ${getSizeClasses()} ${
+        disabled || loading ? 'opacity-50' : 'opacity-100'
+      } ${className || ''}`}
+      style={style}
       onPress={onPress}
       disabled={disabled || loading}
-      activeOpacity={0.7}
+      activeOpacity={0.8}
     >
       {loading ? (
-        <ActivityIndicator color={variant === 'primary' ? '#FFFFFF' : Colors.primary} />
+        <ActivityIndicator 
+          color={variant === 'outline' || variant === 'ghost' ? '#3B82F6' : '#FFFFFF'} 
+        />
       ) : (
-        <Text style={textStyles}>{title}</Text>
+        <>
+          {icon && <>{icon}</>}
+          <Text
+            className={`font-semibold ${getTextVariantClasses()} ${getTextSizeClasses()}`}
+          >
+            {title}
+          </Text>
+        </>
       )}
     </TouchableOpacity>
   );
 };
-
-const styles = StyleSheet.create({
-  button: {
-    borderRadius: 8,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  primaryButton: {
-    backgroundColor: Colors.primary,
-  },
-  secondaryButton: {
-    backgroundColor: Colors.secondary,
-  },
-  outlineButton: {
-    backgroundColor: 'transparent',
-    borderWidth: 2,
-    borderColor: Colors.primary,
-  },
-  smallButton: {
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-  },
-  mediumButton: {
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-  },
-  largeButton: {
-    paddingHorizontal: 24,
-    paddingVertical: 16,
-  },
-  disabledButton: {
-    backgroundColor: Colors.border,
-  },
-  text: {
-    fontWeight: '600',
-  },
-  primaryText: {
-    color: '#FFFFFF',
-  },
-  secondaryText: {
-    color: '#FFFFFF',
-  },
-  outlineText: {
-    color: Colors.primary,
-  },
-  smallText: {
-    fontSize: 12,
-  },
-  mediumText: {
-    fontSize: 14,
-  },
-  largeText: {
-    fontSize: 16,
-  },
-  disabledText: {
-    color: Colors.textMuted,
-  },
-});
 
 export default Button;
 

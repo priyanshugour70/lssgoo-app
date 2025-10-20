@@ -1,5 +1,6 @@
 /**
  * LssGoo Travel App - Profile Screen
+ * Beautiful profile screen with Tailwind CSS
  */
 
 import React from 'react';
@@ -8,7 +9,6 @@ import {
   Text,
   ScrollView,
   TouchableOpacity,
-  StyleSheet,
   ActivityIndicator,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -22,7 +22,9 @@ import {
   Star,
   MapPin,
 } from 'lucide-react-native';
-import { Colors } from '@/app/constants/theme';
+import { router } from 'expo-router';
+import Toast from 'react-native-toast-message';
+import { useAuthStore } from '@/store/authStore';
 import { UserAvatar } from '../components/UserAvatar';
 import { SettingsList } from '../components/SettingsList';
 import { useProfile } from '../hooks/useProfile';
@@ -53,177 +55,102 @@ const menuItems: MenuItem[] = [
 
 export const ProfileScreen = () => {
   const { profile, loading } = useProfile();
+  const logout = useAuthStore(state => state.logout);
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      Toast.show({
+        type: 'success',
+        text1: 'Logged Out',
+        text2: 'See you next time!',
+      });
+      router.replace('/auth/welcome');
+    } catch (error) {
+      Toast.show({
+        type: 'error',
+        text1: 'Error',
+        text2: 'Failed to log out',
+      });
+    }
+  };
 
   if (loading || !profile) {
     return (
-      <SafeAreaView style={styles.container}>
-        <View style={styles.loadingContainer}>
-          <ActivityIndicator size="large" color={Colors.primary} />
+      <SafeAreaView className="flex-1 bg-gray-50">
+        <View className="flex-1 justify-center items-center">
+          <ActivityIndicator size="large" color="#3B82F6" />
+          <Text className="mt-4 text-base text-gray-600">Loading profile...</Text>
         </View>
       </SafeAreaView>
     );
   }
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={styles.header}>
-          <View style={styles.profileSection}>
+    <SafeAreaView className="flex-1 bg-gray-50">
+      <ScrollView showsVerticalScrollIndicator={false} className="flex-1">
+        {/* Header with Profile Info */}
+        <View className="px-6 pt-6 pb-8 bg-white border-b border-gray-100">
+          <View className="flex-row items-center">
             <UserAvatar uri={profile.avatar} />
-            <View style={styles.profileInfo}>
-              <Text style={styles.name}>{profile.name}</Text>
-              <View style={styles.locationContainer}>
-                <MapPin size={14} color={Colors.icon} />
-                <Text style={styles.location}>{profile.location}</Text>
+            <View className="flex-1 ml-4">
+              <Text className="text-2xl font-bold text-gray-900 mb-1">{profile.name}</Text>
+              <View className="flex-row items-center mb-1">
+                <MapPin size={14} color="#6B7280" />
+                <Text className="text-sm text-gray-600 ml-1">{profile.location}</Text>
               </View>
-              <View style={styles.ratingContainer}>
-                <Star size={14} color={Colors.warning} fill={Colors.warning} />
-                <Text style={styles.rating}>
+              <View className="flex-row items-center">
+                <Star size={14} color="#F59E0B" fill="#F59E0B" />
+                <Text className="text-sm text-gray-600 ml-1">
                   {profile.rating} ({profile.reviewCount} reviews)
                 </Text>
               </View>
             </View>
-            <TouchableOpacity style={styles.editButton}>
-              <Edit size={20} color={Colors.primary} />
+            <TouchableOpacity className="p-3 bg-blue-50 rounded-full">
+              <Edit size={20} color="#3B82F6" />
             </TouchableOpacity>
           </View>
         </View>
 
-        <View style={styles.statsContainer}>
-          {Object.entries(profile.stats).map(([key, value], index) => (
-            <View key={index} style={styles.statItem}>
-              <Text style={styles.statValue}>{value}</Text>
-              <Text style={styles.statLabel}>
-                {key.replace(/([A-Z])/g, ' $1').trim()}
-              </Text>
-            </View>
-          ))}
+        {/* Stats Card */}
+        <View className="mx-4 -mt-4 mb-6">
+          <View className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 flex-row">
+            {Object.entries(profile.stats).map(([key, value], index, arr) => (
+              <View key={index} className={`flex-1 items-center ${index < arr.length - 1 ? 'border-r border-gray-200' : ''}`}>
+                <Text className="text-2xl font-bold text-blue-600 mb-1">{value}</Text>
+                <Text className="text-xs text-gray-600 text-center capitalize">
+                  {key.replace(/([A-Z])/g, ' $1').trim()}
+                </Text>
+              </View>
+            ))}
+          </View>
         </View>
 
-        <View style={styles.menuContainer}>
+        {/* Settings Menu */}
+        <View className="px-4 mb-6">
+          <Text className="text-lg font-bold text-gray-900 mb-4 px-2">Settings</Text>
           <SettingsList items={menuItems} />
         </View>
 
-        <TouchableOpacity style={styles.logoutButton}>
-          <LogOut size={20} color={Colors.error} />
-          <Text style={styles.logoutText}>Log Out</Text>
+        {/* Logout Button */}
+        <TouchableOpacity
+          className="flex-row items-center justify-center bg-red-50 mx-4 py-4 rounded-xl mb-6 active:bg-red-100"
+          onPress={handleLogout}
+          activeOpacity={0.8}
+        >
+          <LogOut size={20} color="#EF4444" />
+          <Text className="text-base font-semibold text-red-600 ml-2">Log Out</Text>
         </TouchableOpacity>
 
-        <View style={styles.footer}>
-          <Text style={styles.footerText}>Version 1.0.0</Text>
+        {/* Footer */}
+        <View className="items-center pb-8">
+          <Text className="text-xs text-gray-400">Version 1.0.0</Text>
+          <Text className="text-xs text-gray-400 mt-1">Made with ❤️ by LssGoo Team</Text>
         </View>
       </ScrollView>
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.background,
-  },
-  loadingContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  header: {
-    paddingHorizontal: 20,
-    paddingVertical: 24,
-  },
-  profileSection: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  profileInfo: {
-    flex: 1,
-    marginLeft: 16,
-  },
-  name: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: Colors.text,
-    marginBottom: 4,
-  },
-  locationContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 4,
-  },
-  location: {
-    fontSize: 14,
-    color: Colors.textSecondary,
-    marginLeft: 4,
-  },
-  ratingContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  rating: {
-    fontSize: 14,
-    color: Colors.textSecondary,
-    marginLeft: 4,
-  },
-  editButton: {
-    padding: 8,
-  },
-  statsContainer: {
-    flexDirection: 'row',
-    backgroundColor: Colors.card,
-    marginHorizontal: 20,
-    borderRadius: 12,
-    padding: 20,
-    marginBottom: 24,
-    shadowColor: Colors.cardShadow,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 3,
-  },
-  statItem: {
-    flex: 1,
-    alignItems: 'center',
-  },
-  statValue: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: Colors.primary,
-    marginBottom: 4,
-  },
-  statLabel: {
-    fontSize: 12,
-    color: Colors.textSecondary,
-    textAlign: 'center',
-  },
-  menuContainer: {
-    marginHorizontal: 20,
-    marginBottom: 24,
-  },
-  logoutButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: Colors.error + '10',
-    marginHorizontal: 20,
-    paddingVertical: 16,
-    borderRadius: 12,
-    marginBottom: 24,
-  },
-  logoutText: {
-    fontSize: 16,
-    fontWeight: '500',
-    color: Colors.error,
-    marginLeft: 8,
-  },
-  footer: {
-    alignItems: 'center',
-    paddingBottom: 24,
-  },
-  footerText: {
-    fontSize: 12,
-    color: Colors.textMuted,
-  },
-});
 
 export default ProfileScreen;
 

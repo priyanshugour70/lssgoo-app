@@ -7,11 +7,11 @@ import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
 import {
-  Dimensions,
-  ImageBackground,
-  Text,
-  TouchableOpacity,
-  View,
+    Dimensions,
+    ImageBackground,
+    Text,
+    TouchableOpacity,
+    View,
 } from 'react-native';
 import { HeroProps } from '../types/homeTypes';
 
@@ -25,7 +25,7 @@ export const HeroBanner: React.FC<HeroProps> = ({
 }) => {
   return (
     <View 
-      className="mx-4 my-4 rounded-2xl overflow-hidden"
+      className="mx-4 my-4 rounded-2xl overflow-hidden shadow-lg"
       style={{ height: 300, width: screenWidth - 32 }}
     >
       <ImageBackground
@@ -63,14 +63,7 @@ export const HeroBanner: React.FC<HeroProps> = ({
           <TouchableOpacity
             className="flex-row items-center bg-blue-600 px-6 py-3 rounded-full shadow-lg"
             onPress={onExplorePress}
-            accessibilityLabel="Explore destinations"
-            style={{
-              shadowColor: '#000000',
-              shadowOffset: { width: 0, height: 4 },
-              shadowOpacity: 0.3,
-              shadowRadius: 4.65,
-              elevation: 8,
-            }}
+            activeOpacity={0.8}
           >
             <Text className="text-base font-semibold text-white mr-2">
               Explore Now
@@ -79,7 +72,6 @@ export const HeroBanner: React.FC<HeroProps> = ({
               name="arrow-forward"
               size={20}
               color="#FFFFFF"
-              className="ml-1"
             />
           </TouchableOpacity>
         </View>
@@ -89,4 +81,3 @@ export const HeroBanner: React.FC<HeroProps> = ({
 };
 
 export default HeroBanner;
-

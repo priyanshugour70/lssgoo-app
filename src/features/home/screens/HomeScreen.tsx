@@ -3,23 +3,14 @@
  * Main home screen with all travel components
  */
 
-import React from 'react';
-import { ScrollView, Alert, View, ActivityIndicator } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { router } from 'expo-router';
-
-// Components
-import { HeroBanner, TrendingTrips, OffersCarousel } from '../components';
-
-// Hooks
-import { useHomeData } from '../hooks/useHomeData';
-
-// Constants
-import { Colors } from '@/app/constants/theme';
 import COMPANY_INFO from '@/app/constants/companyInfo';
-
-// Types
 import { CarouselItem } from '@/types/common';
+import { router } from 'expo-router';
+import React from 'react';
+import { ActivityIndicator, Alert, ScrollView, Text, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { HeroBanner, OffersCarousel, TrendingTrips } from '../components';
+import { useHomeData } from '../hooks/useHomeData';
 import { Trip } from '../types/homeTypes';
 
 const CAROUSEL_ITEMS: CarouselItem[] = [
@@ -44,7 +35,7 @@ const CAROUSEL_ITEMS: CarouselItem[] = [
 ];
 
 export const HomeScreen = () => {
-  const { featuredTrips, popularTrips, loading, error } = useHomeData();
+  const { featuredTrips, popularTrips, loading } = useHomeData();
 
   const handleExplorePress = () => {
     router.push('/(tabs)/explore');
@@ -62,20 +53,20 @@ export const HomeScreen = () => {
     return (
       <SafeAreaView className="flex-1 bg-white">
         <View className="flex-1 justify-center items-center">
-          <ActivityIndicator size="large" color={Colors.primary} />
+          <ActivityIndicator size="large" color="#3B82F6" />
+          <Text className="mt-4 text-base text-gray-600">Loading amazing destinations...</Text>
         </View>
       </SafeAreaView>
     );
   }
 
   return (
-    <SafeAreaView className="flex-1 bg-white">
+    <SafeAreaView className="flex-1 bg-gray-50">
       <ScrollView 
         className="flex-1"
-        contentContainerStyle={{ paddingBottom: 20 }}
         showsVerticalScrollIndicator={false}
       >
-        {/* Hero Section */}
+        {/* Hero Banner */}
         <HeroBanner
           title="Discover Amazing Places"
           subtitle={`Explore the world with ${COMPANY_INFO.displayName} and create unforgettable memories`}
@@ -91,22 +82,40 @@ export const HomeScreen = () => {
         />
 
         {/* Popular Trips */}
-        <TrendingTrips
-          trips={popularTrips}
-          onTripPress={handleTripPress}
-          onViewAllPress={handleViewAllPress}
-        />
+        {popularTrips && popularTrips.length > 0 && (
+          <View className="mb-6">
+            <View className="px-4 mb-4">
+              <Text className="text-2xl font-bold text-gray-900">Popular Destinations</Text>
+              <Text className="text-sm text-gray-600 mt-1">Explore the most loved destinations</Text>
+            </View>
+            <TrendingTrips
+              trips={popularTrips}
+              onTripPress={handleTripPress}
+              onViewAllPress={handleViewAllPress}
+            />
+          </View>
+        )}
 
         {/* Featured Trips */}
-        <TrendingTrips
-          trips={featuredTrips}
-          onTripPress={handleTripPress}
-          onViewAllPress={handleViewAllPress}
-        />
+        {featuredTrips && featuredTrips.length > 0 && (
+          <View className="mb-6">
+            <View className="px-4 mb-4">
+              <Text className="text-2xl font-bold text-gray-900">Featured Trips</Text>
+              <Text className="text-sm text-gray-600 mt-1">Hand-picked experiences just for you</Text>
+            </View>
+            <TrendingTrips
+              trips={featuredTrips}
+              onTripPress={handleTripPress}
+              onViewAllPress={handleViewAllPress}
+            />
+          </View>
+        )}
+
+        {/* Footer Space */}
+        <View className="h-6" />
       </ScrollView>
     </SafeAreaView>
   );
 };
 
 export default HomeScreen;
-
