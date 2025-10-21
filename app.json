@@ -12,7 +12,11 @@
     "primaryColor": "#0ea5e9",
     "backgroundColor": "#ffffff",
     "privacy": "public",
-    "platforms": ["ios", "android", "web"],
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
     "githubUrl": "https://github.com/lssgoo/lssgoo-app",
     "ios": {
       "supportsTablet": true,
@@ -94,10 +98,11 @@
     },
     "extra": {
       "router": {
-        "origin": false
+        "origin": false,
+        "root": "./src/app"
       },
       "eas": {
-        "projectId": "your-project-id-here"
+        "projectId": "f4440d5d-2575-4ad8-9046-ae17343e0f13"
       }
     },
     "owner": "lssgoo",
