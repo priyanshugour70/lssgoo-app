@@ -20,6 +20,7 @@ fun MainTopBar(
     onSearchClick: () -> Unit = {}
 ) {
     TopAppBar(
+        modifier = Modifier.windowInsetsPadding(WindowInsets.systemBars.only(WindowInsetsSides.Top)),
         navigationIcon = {
             IconButton(onClick = onMenuClick) {
                 Icon(
@@ -111,4 +112,3 @@ fun SecondaryTopBar(
         )
     )
 }
-
