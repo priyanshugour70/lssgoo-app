@@ -14,31 +14,43 @@ import androidx.core.view.WindowCompat
 
 private val DarkColorScheme = darkColorScheme(
     primary = Primary,
+    onPrimary = TextPrimary,
+    primaryContainer = PrimaryDark,
+    onPrimaryContainer = TextPrimary,
     secondary = Secondary,
-    tertiary = Accent,
-    background = Color(0xFF121212),
-    surface = Color(0xFF1E1E1E),
-    error = Error,
-    onPrimary = Color.White,
     onSecondary = Color.White,
+    secondaryContainer = SecondaryDark,
+    onSecondaryContainer = Color.White,
+    tertiary = Accent,
     onTertiary = Color.White,
+    background = Color(0xFF1A1A1A),
     onBackground = Color.White,
+    surface = Color(0xFF2A2A2A),
     onSurface = Color.White,
+    surfaceVariant = Color(0xFF3A3A3A),
+    onSurfaceVariant = Color.White,
+    error = Error,
     onError = Color.White
 )
 
 private val LightColorScheme = lightColorScheme(
     primary = Primary,
+    onPrimary = TextPrimary,
+    primaryContainer = PrimaryLight,
+    onPrimaryContainer = PrimaryDark,
     secondary = Secondary,
-    tertiary = Accent,
-    background = Background,
-    surface = Surface,
-    error = Error,
-    onPrimary = Color.White,
     onSecondary = Color.White,
+    secondaryContainer = SecondaryLight,
+    onSecondaryContainer = Color.White,
+    tertiary = Accent,
     onTertiary = Color.White,
+    background = Background,
     onBackground = TextPrimary,
+    surface = Surface,
     onSurface = TextPrimary,
+    surfaceVariant = SurfaceVariant,
+    onSurfaceVariant = TextSecondary,
+    error = Error,
     onError = Color.White
 )
 
@@ -67,4 +79,3 @@ fun LssGooTheme(
         content = content
     )
 }
-
